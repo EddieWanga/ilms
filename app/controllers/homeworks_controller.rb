@@ -33,6 +33,12 @@ class HomeworksController < ApplicationController
       render :edit
     end
   end
+  
+  def destroy
+    @homework = Homework.find(params[:id])
+    @homework.destroy
+    redirect_to homeworks_path, alert: "作業已刪除"
+  end
 
 private
   
