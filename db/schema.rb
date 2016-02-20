@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160220113807) do
+ActiveRecord::Schema.define(version: 20160220124603) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "title"
@@ -21,6 +21,7 @@ ActiveRecord::Schema.define(version: 20160220113807) do
     t.string   "attachment"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.text     "homework_id"
   end
 
   create_table "homeworks", force: :cascade do |t|

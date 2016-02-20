@@ -4,13 +4,16 @@ class AnswersController < ApplicationController
   end
   
   def new
-    @answer = Answer.new
+    @homework = Homework.find(params[:homework_id])
+    @answer = @homework.answers.new
+    puts @answer
   end
 
   def create
-    @answer = Answer.create(answer_params)
+    @homework = Homework.find(params[:homework_id])
+    @answer = @homework.answers.build(answer_params)
     if @answer.save 
-      redirect_to answer_path(@answer)
+      redirect_to homework_answer_path(@homework, @answer), notice: "繳交作業成功！"
     else
       render :new
     end

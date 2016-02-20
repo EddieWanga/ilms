@@ -2,8 +2,9 @@ Rails.application.routes.draw do
 
   get 'welcome', to: 'topics#welcome'
   root 'homeworks#index'
-  resources :homeworks 
-  resources :answers
+  resources :homeworks do
+    resources :answers
+  end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
