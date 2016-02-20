@@ -1,0 +1,8 @@
+<div class="homework">
+  <%= link_to("Edit", edit_homework_path, class: "btn btn-warning pull-right") %>
+<h1> <%= @homework.title %> </h1> 
+<hr>
+
+<%= @homework.description.html_safe %>
+</div>
+
