@@ -24,6 +24,15 @@ class HomeworksController < ApplicationController
   def edit
     @homework = Homework.find(params[:id])
   end
+  
+  def update
+    @homework = Homework.find(params[:id])
+    if @homework.update(homework_params)
+      redirect_to homework_path(@homework.id)
+    else
+      render :edit
+    end
+  end
 
 private
   
