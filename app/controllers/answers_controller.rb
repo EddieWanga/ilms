@@ -15,7 +15,8 @@ class AnswersController < ApplicationController
     if @answer.save 
       redirect_to homework_answer_path(@homework, @answer), notice: "繳交作業成功！"
     else
-      render :new
+      flash[:alert] = "請檢查是否有哪些地方弄錯，如檔案超過50MB，或者沒有填Title？"
+      render :new 
     end
   end
   
