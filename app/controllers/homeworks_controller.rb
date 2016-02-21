@@ -1,5 +1,6 @@
 class HomeworksController < ApplicationController
-  before_action :authenticate_user!  
+  before_action :authenticate_user! 
+  before_action :is_admin?, except: [:show, :index]
   
   def index
     @homeworks = Homework.all	
@@ -49,8 +50,14 @@ class HomeworksController < ApplicationController
 =end
 
 private
-  
+   
   def homework_params
     params.require(:homework).permit(:title, :description)
-  end  
+  end
+  
+  def is_admin?
+    if current_user.role != 0
+      raise ActionController::RoutingError.new('Not Found') 
+    end
+  end 
 end
