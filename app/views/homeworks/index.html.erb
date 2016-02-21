@@ -9,7 +9,7 @@
     <% @homeworks.each do |homework| %>
       <tr>
         <td> <%= link_to(homework.title, homework_path(homework)) %>  </td>
-        <td> 0 </td>
+        <td> <%= homework.answers.count %> </td>
       </tr>
     <% end %>
   </tbody>

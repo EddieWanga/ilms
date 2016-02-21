@@ -23,6 +23,9 @@ gem 'file_validators'
 # Validate file information for carrierwave
 gem 'wysiwyg-rails'
 gem 'font-awesome-rails'
+# WYSIWYG plugins
+gem "devise", "~> 3.4.1"
+# Login verification system
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
