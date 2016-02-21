@@ -1,7 +1,7 @@
 <div class="homework">
   <%= link_to("EDIT", edit_homework_path, class: "btn btn-warning pull-right") %>
   <%= link_to("DELETE", homework_path(@homework), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "Are you sure ?" }) %>
-  <%= link_to("SUBMIT HOMEWORK", new_homework_answer_path(@homework), class: "btn btn-primary pull-right") %>
+  <%= link_to("交作業", new_homework_answer_path(@homework), class: "btn btn-primary pull-right") %>
 </div>
 
 <h1> <%= @homework.title %> </h1> 

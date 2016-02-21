@@ -14,12 +14,15 @@ gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/rails/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 gem 'simple_form'
-
+# Simple form is aan easy way to create bootstrap-form for rails
 gem 'bootstrap-sass'
-
+# Bootstrpa theme
 gem 'carrierwave'
-
+# File uploader tools
 gem 'file_validators'
+# Validate file information for carrierwave
+gem 'wysiwyg-rails'
+gem 'font-awesome-rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
