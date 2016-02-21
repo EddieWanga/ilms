@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   resources :homeworks do
     resources :answers
   end
+  # get 'download', :to => 'homeworks#download'
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

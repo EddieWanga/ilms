@@ -1,4 +1,6 @@
 class HomeworksController < ApplicationController
+  before_action :authenticate_user!  
+  
   def index
     @homeworks = Homework.all	
   end
@@ -39,6 +41,12 @@ class HomeworksController < ApplicationController
     @homework.destroy
     redirect_to homeworks_path, alert: "作業已刪除"
   end
+
+=begin
+  def download
+    send_file(File.join(Rails.root, "public", "uploads", "answer", "attachment", "1", "output.img"))
+  end
+=end
 
 private
   
