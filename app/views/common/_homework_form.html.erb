@@ -1,0 +1,10 @@
+<div class="form-group">
+  <h4> Title </h4>
+  <%= f.input :title, input_html: { class: "form-control"}, label: false %>
+  
+  <br>
+  
+  <h4> Description </h4>
+  <%= render partial: 'common/editor', locals: { f: f } %> 
+</div>
+<%= f.submit "Submit", class: "btn btn-primary", data: {diable_with: "Submitting..."} %> 

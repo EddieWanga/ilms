@@ -2,7 +2,7 @@
 <%= @answer.title %>
 
 <h3> Description </h3>
-<%= @answer.description %>
+<%= @answer.description.html_safe %>
 
 <h3> Attachment </h3>
 <%= link_to "Download", @answer.attachment.url %>
