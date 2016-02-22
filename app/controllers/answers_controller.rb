@@ -10,7 +10,7 @@ class AnswersController < ApplicationController
     if !current_user.is_member_of?(@homework)
       @answer = @homework.answers.new
     else
-      redirect_to homework_path(@homework), alert: "你早就教過作業了喔！"
+      redirect_to homework_path(@homework), alert: "你早就交過作業了喔！"
     end
   end
 
@@ -18,15 +18,16 @@ class AnswersController < ApplicationController
     @homework = Homework.find(params[:homework_id])
     if !current_user.is_member_of?(@homework)
       @answer = @homework.answers.build(answer_params)
+      @answer.author = current_user
       if @answer.save
         current_user.join!(@homework) # submit the homework
-        redirect_to homework_answer_path(@homework, @answer), notice: "繳交作業成功！"
+        redirect_to homework_path(@homework), notice: "繳交作業成功！"
       else
         render :new
         flash[:alert] = "請檢查是否有哪些地方弄錯，如檔案超過50MB，或者沒有填Title？"
       end
     else
-      redirect_to homework_path, alert: "你已經繳交作業了喔：Ｄ"
+      redirect_to homework_path(@homework), alert: "你已經繳交作業了喔：Ｄ"
     end
   end
   

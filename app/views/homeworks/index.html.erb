@@ -11,7 +11,7 @@
     <% @homeworks.each do |homework| %>
       <tr>
         <td> <%= link_to(homework.title, homework_path(homework)) %>  </td>
-        <td> <%= homework.answers.count %> </td>
+        <td> <%= homework.answers.count %> / <%= @total_student_counts %> </td>
       </tr>
     <% end %>
   </tbody>

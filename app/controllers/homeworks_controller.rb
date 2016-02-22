@@ -3,7 +3,8 @@ class HomeworksController < ApplicationController
   before_action :is_admin?, except: [:show, :index]
   
   def index
-    @homeworks = Homework.all	
+    @homeworks = Homework.all
+    @total_student_counts = User.find_each(role: 1).size
   end
 
   def new
@@ -21,7 +22,13 @@ class HomeworksController < ApplicationController
   
   def show
     @homework = Homework.find(params[:id])
-    @answers = @homework.answers
+    if current_user.role == 0 # If current user is member of administration group
+      @answers = @homework.answers
+    elsif current_user.is_member_of?(@homework)
+      @answer = @homework.answers.find_by(author: current_user)
+    else
+      @answer = nil
+    end
   end
 
   def edit
