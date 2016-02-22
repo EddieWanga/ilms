@@ -3,4 +3,21 @@ class User < ActiveRecord::Base
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+  
+  has_many :homeworks
+  has_many :homework_users
+  has_many :participated_homeworks, through: :homework_users, source: :homework
+
+
+  def join!(homework)
+    participated_homeworks << homework
+  end
+
+  def quit!(homework)
+    participated_homeworks.delete(homework)
+  end
+
+  def is_member_of?(homework)
+    return participated_homeworks.include?(homework)
+  end
 end
