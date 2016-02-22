@@ -1,11 +1,13 @@
 Rails.application.routes.draw do
-
+  
   devise_for :users
   # devise_for :users, skip: [:registrations]
   get 'welcome', to: 'topics#welcome'
   root 'homeworks#index'
   resources :homeworks do
-    resources :answers
+    resources :answers do
+      resources :reviews
+    end
   end
   # get 'download', :to => 'homeworks#download'
 

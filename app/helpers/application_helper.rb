@@ -24,4 +24,8 @@ module ApplicationHelper
       return user.role == 0
     end
   end
+
+  def is_reviewed?(answer)
+    return answer.review != nil
+  end
 end

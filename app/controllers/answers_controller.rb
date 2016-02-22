@@ -38,7 +38,13 @@ class AnswersController < ApplicationController
   end
 
   def show
+    @homework = Homework.find(params[:homework_id])
     @answer = Answer.find(params[:id])
+    if is_admin?(current_user)
+      @review = @answer.build_review
+    elsif current_user != @answer.author
+      redirect_to homework_path(@homework), alert: "不要偷看別人的作業>//<"
+    end
   end
 
   def destroy
@@ -66,5 +72,9 @@ private
 
   def answer_params
     params.require(:answer).permit(:title, :description, :attachment)
+  end
+
+  def is_admin?(user)
+    return current_user && current_user.role == 0
   end
 end
