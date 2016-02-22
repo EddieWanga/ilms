@@ -42,6 +42,15 @@ class AnswersController < ApplicationController
   end
 
   def destroy
+    @homework = Homework.find(params[:homework_id])
+    if current_user.is_member_of?(@homework)
+      current_user.quit!(@homework)
+      @answer = @homework.answers.find(params[:id])
+      @answer.destroy
+      redirect_to homework_path(@homework), notice: "安全讓作業下架囉!"
+    else
+      redirect_to homework_path(@homework), alert: "沒有作業是想刪除什麼呢？"
+    end
   end
 
 private
