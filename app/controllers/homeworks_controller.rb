@@ -4,7 +4,7 @@ class HomeworksController < ApplicationController
   
   def index
     @homeworks = Homework.all
-    @total_student_counts = User.find_each(role: 1).size
+    @total_student_counts = User.where(role: 1).size
   end
 
   def new
