@@ -6,6 +6,8 @@ class Answer < ActiveRecord::Base
   belongs_to :homework
   belongs_to :author, class_name: "User", foreign_key: :user_id  
   
+  has_one :review, dependent: :destroy
+   
   def attachment_size_validation
     if attachment.size > 50.megabytes
 	  errors.add(:base, "Attachment should be less than 10MB")
