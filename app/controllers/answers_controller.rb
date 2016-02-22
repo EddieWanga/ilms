@@ -23,8 +23,8 @@ class AnswersController < ApplicationController
         current_user.join!(@homework) # submit the homework
         redirect_to homework_path(@homework), notice: "繳交作業成功！"
       else
-        render :new
         flash[:alert] = "請檢查是否有哪些地方弄錯，如檔案超過50MB，或者沒有填Title？"
+        render :new
       end
     else
       redirect_to homework_path(@homework), alert: "你已經繳交作業了喔：Ｄ"
