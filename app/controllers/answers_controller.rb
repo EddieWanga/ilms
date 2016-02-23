@@ -32,9 +32,32 @@ class AnswersController < ApplicationController
   end
   
   def edit
+    @homework = Homework.find(params[:homework_id])
+    if current_user.is_member_of?(@homework)
+      @answer = @homework.answers.find(params[:id])
+      if @answer.author != current_user
+        redirect_to homework_path(@homework), alert: "不要偷改別人的作業 >///<"
+      end
+    else
+      flash[:alert] = "你沒有交作業，是要更改什麼阿：D？"
+      redirect_to homework_path(@homework)
+    end
   end
 
   def update
+    @homework = Homework.find(params[:homework_id])
+    if current_user.is_member_of?(@homework)
+      @answer = @homework.answers.find(params[:id])
+      if @answer.update(answer_params)
+        redirect_to homework_path(@homework), notice: "更新完成"
+      else
+        flash[:alert] = "是不是有什麼東西少填了？"
+        render :edit
+      end
+    else
+      flash[:alert] = "不要偷偷更新別人的作業 >///<"
+      redirect_to homework_path(@homework)
+    end
   end
 
   def show

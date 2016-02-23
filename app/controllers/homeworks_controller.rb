@@ -16,6 +16,7 @@ class HomeworksController < ApplicationController
     if @homework.save
       redirect_to homework_path(@homework.id)
     else
+      flash[:alert] = "請不要什麼都不填QAQ"
       render :new
     end
   end
@@ -41,8 +42,9 @@ class HomeworksController < ApplicationController
   def update
     @homework = Homework.find(params[:id])
     if @homework.update(homework_params)
-      redirect_to homework_path(@homework.id)
+      redirect_to homework_path(@homework.id), notice: "作業更新成功！"
     else
+      flash[:alert] = "是不是有什麼東西沒有填到？"
       render :edit
     end
   end
