@@ -5,12 +5,14 @@
 <table class="table table-hover">
   <thead>
     <th> 標題 </th>
+    <th> 到期日 </th>
     <th> 已交人數 </th>
   </thead>
   <tbody>
     <% @homeworks.each do |homework| %>
       <tr>
         <td> <%= link_to(homework.title, homework_path(homework)) %>  </td>
+        <td> <%= get_time(homework.deadline, Time.now.to_datetime) %>  </td>
         <td> <%= homework.answers.count %> / <%= @total_student_counts %> </td>
       </tr>
     <% end %>

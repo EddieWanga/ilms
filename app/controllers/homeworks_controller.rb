@@ -14,7 +14,7 @@ class HomeworksController < ApplicationController
   def create
     @homework = Homework.create(homework_params)
     if @homework.save
-      redirect_to homework_path(@homework.id)
+      redirect_to homework_path(@homework.id), notice: "成功新增一項作業"
     else
       flash[:alert] = "請不要什麼都不填QAQ"
       render :new
@@ -64,7 +64,7 @@ class HomeworksController < ApplicationController
 private
    
   def homework_params
-    params.require(:homework).permit(:title, :description)
+    params.require(:homework).permit(:title, :description, :deadline)
   end
   
   def is_admin?

@@ -5,6 +5,10 @@
   <br>
   
   <h4> Description </h4>
-  <%= render partial: 'common/editor', locals: { f: f } %> 
+  <%= render partial: 'common/editor', locals: { f: f } %>
+  
+  <h4> Deadline </h4>
+  <%= f.input :deadline, :class => 'datepicker' %>
+
 </div>
 <%= f.submit "Submit", class: "btn btn-primary", data: {diable_with: "Submitting..."} %> 

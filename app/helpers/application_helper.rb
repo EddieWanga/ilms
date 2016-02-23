@@ -28,4 +28,12 @@ module ApplicationHelper
   def is_reviewed?(answer)
     return answer.review != nil
   end
+
+  def get_time(time, current_time)
+    if current_time > time
+      content_tag(:font, "#{time.to_s.split(' ')[0..1].join(' ')}(已過期)", color: "red")
+    else
+      content_tag(:font, time.to_s.split(' ')[0..1].join(' '))
+    end  
+  end
 end
