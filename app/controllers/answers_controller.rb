@@ -51,7 +51,7 @@ class AnswersController < ApplicationController
       if @answer.update(answer_params)
         redirect_to homework_path(@homework), notice: "更新完成"
       else
-        flash[:alert] = "是不是有什麼東西少填了？"
+        flash[:alert] = "是不是有什麼東西少填了，或者檔案超過50MB？"
         render :edit
       end
     else

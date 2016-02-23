@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 class AttachmentUploader < CarrierWave::Uploader::Base
 
   # Include RMagick or MiniMagick support:
@@ -46,6 +45,7 @@ class AttachmentUploader < CarrierWave::Uploader::Base
   # Override the filename of the uploaded files:
   # Avoid using model.id or version_name here, see uploader/store.rb for details.
   # def filename
+  #  file_name.encode!('utf-8', 'utf-8-mac').chars.map(&:to_s)
   #   "something.jpg" if original_filename
   # end
 
