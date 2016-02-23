@@ -7,8 +7,10 @@
   <%= render partial: 'common/editor', locals: { f: f, description: :description} %> 
   
   <h3> Attachment </h3>
-  你當前的檔案：<%= link_to "Download", @answer.attachment.url %>
-  <br><br>
+  <% if @answer.attachment.url != nil %>  
+    你當前的檔案：<%= link_to "Download", @answer.attachment.url %>
+    <br><br>
+  <% end %>
   <%= f.input :attachment, label: "重新上傳檔案，檔案請不要超過50MB" %>
   <%= f.submit "Submit", class: "btn btn-primary", data: {disable_with: "Submitting..."} %>
 <% end %>

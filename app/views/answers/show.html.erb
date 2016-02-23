@@ -6,8 +6,10 @@
 <h3> Description </h3>
 <%= @answer.description.html_safe %>
 
-<h3> Attachment </h3>
-<%= link_to "Download", @answer.attachment.url %>
+<% if @answer.attachment.url != nil %>
+  <h3> Attachment </h3>
+  <%= link_to "Download", @answer.attachment.url %>
+<% end %>
 
 <h3> Submission Time :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h3> 
 
