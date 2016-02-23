@@ -4,6 +4,7 @@
 <% end %>
 <table class="table table-hover">
   <thead>
+    <th> 狀態 </th>
     <th> 標題 </th>
     <th> 到期日 </th>
     <th> 已交人數 </th>
@@ -11,6 +12,13 @@
   <tbody>
     <% @homeworks.each do |homework| %>
       <tr>
+        <td>
+          <% if current_user.is_member_of?(homework) %>
+            <span class="label label-success">已繳交</span>
+          <% else %>
+            <span class="label label-danger">未繳交</span> 
+          <% end %>
+        </td>
         <td> <%= link_to(homework.title, homework_path(homework)) %>  </td>
         <td> <%= get_time(homework.deadline, Time.now.to_datetime) %>  </td>
         <td> <%= homework.answers.count %> / <%= @total_student_counts %> </td>
