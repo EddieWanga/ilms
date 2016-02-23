@@ -7,8 +7,9 @@
   <h4> Description </h4>
   <%= render partial: 'common/editor', locals: { f: f } %>
   
+  <br>
+   
   <h4> Deadline </h4>
-  <%= f.input :deadline, :class => 'datepicker' %>
-
+  <%= f.input :deadline, :class => 'datepicker', label: false %>
 </div>
 <%= f.submit "Submit", class: "btn btn-primary", data: {diable_with: "Submitting..."} %> 

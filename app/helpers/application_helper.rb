@@ -36,4 +36,12 @@ module ApplicationHelper
       content_tag(:font, time.to_s.split(' ')[0..1].join(' '))
     end  
   end
+  
+  def submit_time(time, current_time)
+    if current_time > time
+      content_tag(:font, "#{current_time.to_s.split(' ')[0..1].join(' ')}(已過期)", color: "red")
+    else
+      content_tag(:font, current_time.to_s.split(' ')[0..1].join(' '))
+    end  
+  end
 end

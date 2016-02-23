@@ -10,19 +10,27 @@
   <% end %>
 </div>
 
-<h1> <%= @homework.title %> </h1> 
+<h1> Homework </h1> 
 <hr>
+<h3> Title </h3> 
+<%= @homework.title %>
+
+<h3> Description </h3>
 <%= @homework.description.html_safe %>
 
-<hr>
+<h3> Deadline :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h3> 
+
+<br><br>
 
 <% if is_admin?(current_user) %>
-  <h3> 已交名單 </h3>
+  <h1> 已交名單 </h1>
+  <hr>
   <table class="table table-hover">
     <thead>
       <th> Name </th>
       <th> Title </th>
       <th> File </th>
+      <th> Submission Time </th>
       <th> Point </th>
     </thead>
     <tbody>
@@ -31,6 +39,7 @@
           <td> <%= answer.author.name %> </td>
           <td> <%= link_to answer.title, homework_answer_path(@homework, answer) %> </td>
           <td> <%= link_to "Download", answer.attachment.url %> </td>
+          <td> <%= submit_time(@homework.deadline, answer.updated_at) %> </td>
           <td>
             <% if is_reviewed?(answer) %>
               <%= answer.review.point %>
@@ -43,9 +52,10 @@
     </tbody>
   </table>
   
-  <hr>
+  <br><br>
 
-  <h3> 未交名單 </h3>
+  <h1> 未交名單 </h1>
+  <hr>
   <table class="table table-hover">
     <thead>
       <th> Name </th>
@@ -61,6 +71,8 @@
     </tbody>
   </table>
 <% elsif @answer != nil %>
+  <h1> 繳交的作業 </h1>
+  <hr>
   <h3> Title </h3>
   <%= @answer.title %>
 
@@ -69,6 +81,8 @@
 
   <h3> Attachment </h3>
   <%= link_to "Download", @answer.attachment.url %>
+  
+  <h3> Submission Time :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h3> 
 <% end %>
 
 
