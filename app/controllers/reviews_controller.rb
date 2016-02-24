@@ -16,8 +16,8 @@ class ReviewsController < ApplicationController
     if @review.save
       redirect_to homework_path(@homework), notice: "成功評分！"
     else
-      render :new 
       flash[:alert] = "至少幫他打個分數吧OAO！"
+      render :new 
     end
   end
 
@@ -28,8 +28,8 @@ class ReviewsController < ApplicationController
     if @review.update(review_params)
       redirect_to homework_path(@homework), notice: "成功更改評分！"
     else
-      render :new 
       flash[:alert] = "至少幫他打個分數吧OAO！"
+      render :new 
     end
   end
 
