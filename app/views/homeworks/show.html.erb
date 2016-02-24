@@ -71,20 +71,9 @@
     </tbody>
   </table>
 <% elsif @answer != nil %>
-  <h1> 繳交的作業 </h1>
-  <hr>
-  <h3> Title </h3>
-  <%= @answer.title %>
-
-  <h3> Description </h3>
-  <%= @answer.description.html_safe %>
   
-  <% if @answer.attachment.url != nil %>
-    <h3> Attachment </h3>
-    <%= link_to "Download", @answer.attachment.url %>
-  <% end %>
-  <h3> Submission Time :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h3> 
-  
+  <%= render 'answers/content' %>
+   
   <% if @review != nil %>
     <br><br>
     <h1> Review </h1>

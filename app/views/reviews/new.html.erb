@@ -1,11 +1,4 @@
-<h3> Title </h3>
-<%= @answer.title %>
-
-<h3> Description </h3>
-<%= @answer.description.html_safe %>
-
-<h3> Attachment </h3>
-<%= link_to "Download", @answer.attachment.url %>
+<%= render 'answers/content' %>
 
 <br>
 
