@@ -20,3 +20,4 @@
 *.swo
 email.yml
 /public/uploads
+/public/assets

@@ -11,11 +11,12 @@ class UserMailer < ApplicationMailer
     mail(to: "hkhs7821@gmail.com", subject: "Welcome to sprout!")
   end
 
-  def notify_submit(user, answer)
+  def notify_submit(user, answer, home_url)
     @answer = answer
     @user = user
     @homework = answer.homework
     @url = @answer.attachment.url
+    @root_url = home_url.chomp('/')
     mail(to: user.email, subject: "[資訊之芽繳交作業留存] #{@homework.title}")
   end
 end

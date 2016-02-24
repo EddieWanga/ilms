@@ -21,7 +21,7 @@ class AnswersController < ApplicationController
       @answer.author = current_user
       if @answer.save
         current_user.join!(@homework) # submit the homework
-        UserMailer.notify_submit(current_user, @answer).deliver_later! 	 	
+        UserMailer.notify_submit(current_user, @answer, root_url).deliver_later! 	 	
         redirect_to homework_path(@homework), notice: "繳交作業成功！"
       else
         flash[:alert] = "請檢查是否有哪些地方弄錯，如檔案超過50MB，或者沒有填Title？"
@@ -50,7 +50,7 @@ class AnswersController < ApplicationController
     if current_user.is_member_of?(@homework)
       @answer = @homework.answers.find(params[:id])
       if @answer.update(answer_params)
-        UserMailer.notify_submit(current_user, @answer).deliver_later! 	 	
+        UserMailer.notify_submit(current_user, @answer, root_url).deliver_later! 	 	
         redirect_to homework_path(@homework), notice: "更新完成"
       else
         flash[:alert] = "是不是有什麼東西少填了，或者檔案超過50MB？"
