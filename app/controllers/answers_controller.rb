@@ -66,7 +66,10 @@ class AnswersController < ApplicationController
     @homework = Homework.find(params[:homework_id])
     @answer = Answer.find(params[:id])
     if is_admin?(current_user)
-      @review = @answer.build_review
+      @review = @answer.review
+      if @answer.review == nil
+        @review = @answer.build_review
+      end
     elsif current_user != @answer.author
       redirect_to homework_path(@homework), alert: "不要偷看別人的作業>//<"
     end

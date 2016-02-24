@@ -21,6 +21,18 @@ class ReviewsController < ApplicationController
     end
   end
 
+  def update
+    @homework = Homework.find(params[:homework_id])
+    @answer = @homework.answers.find(params[:answer_id])
+    @review = @answer.review
+    if @review.update(review_params)
+      redirect_to homework_path(@homework), notice: "成功更改評分！"
+    else
+      render :new 
+      flash[:alert] = "至少幫他打個分數吧OAO！"
+    end
+  end
+
 private
   
   def review_params

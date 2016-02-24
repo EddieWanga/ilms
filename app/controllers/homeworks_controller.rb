@@ -30,6 +30,7 @@ class HomeworksController < ApplicationController
       @non_submitted_students = @students - @submitted_students
     elsif current_user.is_member_of?(@homework)
       @answer = @homework.answers.find_by(author: current_user)
+      @review = @answer.review 
     else
       @answer = nil
     end

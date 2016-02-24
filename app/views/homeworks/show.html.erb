@@ -42,7 +42,7 @@
           <td> <%= submit_time(@homework.deadline, answer.updated_at) %> </td>
           <td>
             <% if is_reviewed?(answer) %>
-              <%= answer.review.point %>
+              <%= link_to answer.review.point, homework_answer_path(@homework, answer) %>
             <% else %>
               <%= link_to "Review", homework_answer_path(@homework, answer), class: "btn btn-primary" %>
             <% end %>
@@ -84,6 +84,17 @@
     <%= link_to "Download", @answer.attachment.url %>
   <% end %>
   <h3> Submission Time :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h3> 
+  
+  <% if @review != nil %>
+    <br><br>
+    <h1> Review </h1>
+    <hr>
+    <h3> Points : <font color="red"> <%= @review.point %> </font> </h3> 
+    <h3> Comment </h3>
+    <%= @review.comment.html_safe %>
+  <% end %> 
 <% end %>
+
+
 
 
