@@ -12,6 +12,12 @@ bundle install
 rake db:migrate
 ```
 
+* Execute Send Email Active Job in other process
+
+```
+rake jobs:work
+```
+
 * Execute rails server
 
 ```
