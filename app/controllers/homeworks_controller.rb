@@ -14,6 +14,16 @@ class HomeworksController < ApplicationController
   def create
     @homework = Homework.create(homework_params)
     if @homework.save
+=begin      
+      user = User.find_by(email: "foy2803@gmail.com")
+      for i in 1..20
+        UserMailer.notify_new_homework(user, @homework, root_url, "#{homework_path(@homework)}#{i}").deliver_later! 	 	
+      end
+      users = User.where(role: 1)
+      users.each do |user|
+        UserMailer.notify_new_homework(user, @homework, root_url, homework_path(@homework)).deliver_later! 	 	
+      end
+=end
       redirect_to homework_path(@homework.id), notice: "成功新增一項作業"
     else
       flash[:alert] = "請不要什麼都不填QAQ"
@@ -43,6 +53,12 @@ class HomeworksController < ApplicationController
   def update
     @homework = Homework.find(params[:id])
     if @homework.update(homework_params)
+=begin      
+      users = User.where(role: 1)
+      users.each do |user|
+        UserMailer.notify_new_homework(user, @homework, root_url, homework_path(@homework)).deliver_later! 	 	
+      end
+=end
       redirect_to homework_path(@homework.id), notice: "作業更新成功！"
     else
       flash[:alert] = "是不是有什麼東西沒有填到？"

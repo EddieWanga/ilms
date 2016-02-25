@@ -20,12 +20,10 @@ class UserMailer < ApplicationMailer
     mail(to: user.email, subject: "[資訊之芽作業繳交留存] #{@homework.title} - #{@answer.title}")
   end
 
-  def notify_new_homework(user, homework, home_url)
+  def notify_new_homework(user, homework, root_url, homework_url)
     @homework = homework
     @user = user
-    @homework = answer.homework
-    @url = @answer.attachment.url
-    @root_url = home_url.chomp('/')
+    @url = root_url.chomp('/') + homework_url
     mail(to: user.email, subject: "[資訊之芽作業通知] #{@homework.title}")
   end
 end
