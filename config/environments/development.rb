@@ -18,6 +18,9 @@ Rails.application.configure do
   config.action_mailer.delivery_method = :smtp  
   config.action_mailer.default_url_options = { host: "http://localhost:3000" }
   config.action_mailer.smtp_settings = config_for(:email).symbolize_keys
+  
+  # config active::job
+  config.active_job.queue_adapter = :delayed_job
 
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log

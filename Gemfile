@@ -26,6 +26,8 @@ gem 'font-awesome-rails'
 # WYSIWYG plugins
 gem "devise", "~> 3.4.1"
 # Login verification system
+gem 'delayed_job_active_record'
+# Active JOB Backend
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
