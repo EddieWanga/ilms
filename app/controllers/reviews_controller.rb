@@ -1,4 +1,7 @@
 class ReviewsController < ApplicationController
+  before_action :authenticate_user!  
+  before_action :is_admin?
+   
   def new
     @homework = Homework.find(params[:homework_id])
     @answer = Answer.find(params[:id])
@@ -39,4 +42,9 @@ private
     params.require(:review).permit(:point, :comment)
   end
 
+  def is_admin?
+    if current_user.role != 0
+      raise ActionController::RoutingError.new('Not Found') 
+    end
+  end 
 end
