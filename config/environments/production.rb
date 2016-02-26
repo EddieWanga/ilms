@@ -23,6 +23,9 @@ Rails.application.configure do
   # For large-scale production use, consider using a caching reverse proxy like
   # NGINX, varnish or squid.
   # config.action_dispatch.rack_cache = true
+  
+  # config active::job
+  config.active_job.queue_adapter = :delayed_job
 
   # Disable serving static files from the `/public` folder by default since
   # Apache or NGINX already handles this.
