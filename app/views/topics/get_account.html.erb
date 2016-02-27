@@ -1,17 +1,16 @@
-<h1> 帳號認證 </h1>
+<h1> 取得 Sprout LMS 帳號 </h1>
 <br>
 <h2> 帳號認證步驟： </h2>
 (註：目前只有提供給資訊之芽語法班的學員帳號喔) <br>
-
-<h5> 1. 請輸入電子郵件地址，必須是之前填寫報名語法班電子郵件地址 </h5>
+<h5> <font color="red"> 1. 請輸入電子郵件地址，必須是之前填寫報名語法班電子郵件地址 </font> </h5>
 <h5> 2. 請到電子信箱收取信件，內容有您的帳號、密碼、認證碼 </h5>
 <h5> 3. 登入Sprout LMS，您將會看到輸入認證碼頁面 </h5>
-<h5> <font color="red"> 4. 輸入email中提供的認證碼後，您將可以使用這個服務 </font> </h5>
+<h5> 4. 輸入email中提供的認證碼後，您將可以使用這個服務 </h5>
 
 <br>
 
-<h3> 請輸入您的認證碼 </h3>
-<%= simple_form_for @topic, :url => verify_account_path, :method => :post do |f|%>
+<h3> 請輸入您的電子郵件地址 </h3>
+<%= simple_form_for @topic, :url => send_account_path, :method => :post do |f|%>
   <%= f.input :confirm_code, input_html: { class: "form-control" }, label: false %>
   <%= f.submit "Submit", class: "btn btn-primary", data: { disable_with: "Submitting..." } %> 
 <% end %>

@@ -8,7 +8,10 @@ Rails.application.routes.draw do
   end 
   
   get 'welcome', to: 'topics#welcome'
-  post 'topics', to: 'topics#create'
+  post 'verify_account', to: 'topics#verify_account'
+  
+  get 'get_account', to: 'topics#get_account'
+  post 'send_account', to: 'topics#send_account'
   
   root 'homeworks#index'
   
