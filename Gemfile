@@ -6,6 +6,7 @@ gem 'rails', '4.2.4'
 
 group :production do
   gem 'mysql2', "~> 0.3.20"
+  gem 'unicorn'
 end
 
 group :development do
