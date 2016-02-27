@@ -16,7 +16,7 @@ Rails.application.configure do
 
   config.action_mailer.raise_delivery_errors = false
   config.action_mailer.delivery_method = :smtp  
-  config.action_mailer.default_url_options = { host: "http:://128.199.232.38:3000" }
+  config.action_mailer.default_url_options = { host: "http:://lang2016.sprout.tw" }
   config.action_mailer.smtp_settings = config_for(:email).symbolize_keys
   # Enable Rack::Cache to put a simple HTTP cache in front of your application
   # Add `rack-cache` to your Gemfile before enabling this.
