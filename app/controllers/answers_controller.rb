@@ -1,5 +1,6 @@
 class AnswersController < ApplicationController
   before_action :authenticate_user!  
+  before_action :is_valid_user? 
   
   def index
     @answers = Answer.all

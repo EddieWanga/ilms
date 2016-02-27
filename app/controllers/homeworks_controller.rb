@@ -1,5 +1,6 @@
 class HomeworksController < ApplicationController
-  before_action :authenticate_user! 
+  before_action :authenticate_user!
+  before_action :is_valid_user? 
   before_action :is_admin?, except: [:show, :index]
   
   def index

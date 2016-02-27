@@ -11,4 +11,10 @@ protected
       u.permit(:password, :password_confirmation, :current_password) 
     }
   end
+
+  def is_valid_user?
+    if current_user.role == 2
+      redirect_to welcome_path
+    end
+  end
 end
