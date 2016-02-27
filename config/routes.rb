@@ -6,9 +6,12 @@ Rails.application.routes.draw do
     get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
     put 'users' => 'devise/registrations#update', :as => 'user_registration'            
   end 
+  
   get 'welcome', to: 'topics#welcome'
-  resources :topics, only: :create
+  post 'topics', to: 'topics#create'
+  
   root 'homeworks#index'
+  
   resources :homeworks do
     resources :answers do
       resources :reviews

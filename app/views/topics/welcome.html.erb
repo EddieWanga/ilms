@@ -1,3 +1,6 @@
-<h1>hahahha </h1>
-
-<a href="/" class="btn btn-primary">google</a>
+<h1> 請輸入邀請碼 </h1>
+<hr>
+<%= simple_form_for(@topic) do |f|%>
+  <%= f.input :confirm_code, input_html: { class: "form-control" }, label: false %>
+  <%= f.submit "Submit", class: "btn btn-primary", data: { disable_with: "Submitting..." } %> 
+<% end %>
