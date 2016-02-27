@@ -17,6 +17,12 @@ class ReviewsController < ApplicationController
     @answer = @homework.answers.find(params[:answer_id])
     @review = @answer.build_review(review_params)
     if @review.save
+      UserMailer.notify_review(
+        @review.answer.author, 
+        @homework.title, 
+        @review, 
+        root_url.chomp('/') + homework_path(@homework)
+      ).deliver_later! 	 	
       redirect_to homework_path(@homework), notice: "成功評分！"
     else
       flash[:alert] = "至少幫他打個分數吧OAO！"
@@ -29,6 +35,12 @@ class ReviewsController < ApplicationController
     @answer = @homework.answers.find(params[:answer_id])
     @review = @answer.review
     if @review.update(review_params)
+      UserMailer.notify_review(
+        @review.answer.author, 
+        @homework.title, 
+        @review, 
+        root_url.chomp('/') + homework_path(@homework)
+      ).deliver_later! 	 	
       redirect_to homework_path(@homework), notice: "成功更改評分！"
     else
       flash[:alert] = "至少幫他打個分數吧OAO！"

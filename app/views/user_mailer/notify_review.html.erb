@@ -1,0 +1,18 @@
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h3 class="panel-title">Hi, <%= @user.name %>, 作業分數通知</h3>
+  </div>
+  <div class="panel-body">
+	<h3> Title </h3>
+	<%= @title %>
+
+	<h3> Points : <font color="red"> <%= @review.point %> </font> </h3>
+    <h3> 評論 </h3>
+	<%= @review.comment.html_safe %>
+     
+    <br>
+    <%= link_to  "點此連結觀看作業分數詳情", @url %> 
+  </div>
+</div>
+
+
