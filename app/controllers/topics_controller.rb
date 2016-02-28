@@ -31,7 +31,7 @@ class TopicsController < ApplicationController
         redirect_to get_account_path, alert: "此帳號已驗證！"
       else
         password = Dictionary.find_by(confirm_code: user.confirm_code).password
-        UserMailer.notify_confirm(user, password).deliver_later!  
+        UserMailer.notify_confirm(user, password, root_url).deliver_later!  
         redirect_to get_account_path, notice: "Hi, #{user.name} 請到電子信箱取得密碼和驗證碼！"
       end
     else

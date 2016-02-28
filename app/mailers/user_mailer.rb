@@ -35,10 +35,11 @@ class UserMailer < ApplicationMailer
     mail(to: user.email, subject: "[資訊之芽作業成績通知] #{title}")
   end
 
-  def notify_confirm(user, password)
+  def notify_confirm(user, password, root_url)
     @email = user.email
     @password = password
     @confirm_code = user.confirm_code
+    @url = root_url
     mail(to: @email, subject: "[Sprout LMS 帳號認證] Hi, #{user.name}")
   end
 end
