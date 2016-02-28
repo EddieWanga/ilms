@@ -1,6 +1,7 @@
 class TopicsController < ApplicationController
   before_action :authenticate_user!, only: [:welcome, :verify_account]
-
+  before_action :is_login?, only: [:get_account, :send_account]
+  
   def welcome
     @topic = Topic.new
   end
@@ -26,8 +27,13 @@ class TopicsController < ApplicationController
     email = @topic.confirm_code
     user = User.find_by(email: email)
     if user != nil
-      password = Dictionary.find_by(confirm_code: user.confirm_code).password
-      redirect_to get_account_path, notice: "#{password} 請到電子信箱取得密碼和驗證碼！"
+      if user.role != 2
+        redirect_to get_account_path, alert: "此帳號已驗證！"
+      else
+        password = Dictionary.find_by(confirm_code: user.confirm_code).password
+        UserMailer.notify_confirm(user, password).deliver_later!  
+        redirect_to get_account_path, notice: "Hi, #{user.name} 請到電子信箱取得密碼和驗證碼！"
+      end
     else
       flash[:alert] = "請檢查輸入的email是否正確"
       render :get_account
@@ -38,5 +44,11 @@ private
 
   def topic_params
     params.require(:topic).permit(:confirm_code)
+  end
+
+  def is_login?
+    if current_user
+      redirect_to root_path
+    end
   end
 end

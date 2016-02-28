@@ -26,12 +26,19 @@ class UserMailer < ApplicationMailer
     @url = root_url.chomp('/') + homework_url
     mail(to: user.email, subject: "[資訊之芽作業通知] #{@homework.title}")
   end
-  
+   
   def notify_review(user, title, review, homework_url)
     @title = title
     @review = review
     @user = user
     @url = homework_url
     mail(to: user.email, subject: "[資訊之芽作業成績通知] #{title}")
+  end
+
+  def notify_confirm(user, password)
+    @email = user.email
+    @password = password
+    @confirm_code = user.confirm_code
+    mail(to: @email, subject: "[Sprout LMS 帳號認證] Hi, #{user.name}")
   end
 end
