@@ -74,7 +74,7 @@ class HomeworksController < ApplicationController
 private
    
   def homework_params
-    params.require(:homework).permit(:title, :description, :deadline)
+    params.require(:homework).permit(:title, :description, :deadline, :attachment)
   end
   
   def is_admin?

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160227151119) do
+ActiveRecord::Schema.define(version: 20160301051402) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "title"
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(version: 20160227151119) do
     t.datetime "updated_at",  null: false
     t.integer  "user_id"
     t.datetime "deadline"
+    t.string   "attachment"
   end
 
   create_table "reviews", force: :cascade do |t|

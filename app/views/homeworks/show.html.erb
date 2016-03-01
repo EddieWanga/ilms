@@ -12,13 +12,24 @@
 
 <h1> Homework </h1> 
 <hr>
-<h3> Title </h3> 
-<%= @homework.title %>
+<h4> Title </h4> 
+<%= @homework.title %> 
 
-<h3> Description </h3>
+<br> <br>
+
+<h4> Description </h4>
 <%= @homework.description.html_safe %>
 
-<h3> Deadline :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h3> 
+<br>
+
+<% if @homework.attachment.url != nil %>
+  <h4> Attachment </h4>
+  <%= link_to "Download", @homework.attachment.url %>
+<% end %>
+
+<br><br>
+
+<h4> Deadline :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h4> 
 
 <br><br>
 

@@ -8,8 +8,18 @@
   <%= render partial: 'common/editor', locals: { f: f } %>
   
   <br>
+  
+  <h4> Attachment </h4>
+  <% if @homework.attachment.url != nil %>
+    已經上傳的檔案：
+    <%= link_to File.basename(@homework.attachment.url), @homework.attachment.url %>
+  <% end %>
+  <br> <br>
+  <font color="red"> 請不要上傳超過50MB的檔案 </font><%= f.input :attachment, label: false %> 
+  
+  <br>
    
   <h4> Deadline </h4>
   <%= f.input :deadline, :class => 'datepicker', label: false %>
 </div>
-<%= f.submit "Submit", class: "btn btn-primary", data: {diable_with: "Submitting..."} %> 
+<%= f.submit "Submit", class: "btn btn-primary", data: {disable_with: "Submitting..."} %> 

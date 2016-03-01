@@ -10,7 +10,7 @@ class Answer < ActiveRecord::Base
    
   def attachment_size_validation
     if attachment.size > 50.megabytes
-	  errors.add(:base, "Attachment should be less than 10MB")
+	  errors.add(:base, "Attachment should be less than 50MB")
     end
   end 
 
