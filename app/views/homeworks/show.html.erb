@@ -22,12 +22,12 @@
 
 <br>
 
-<% if @homework.attachment.url != nil %>
+<% if @homework.download_link != nil %>
   <h4> Attachment </h4>
-  <%= link_to "Download", @homework.attachment.url %>
+  <%= link_to "Download", @homework.download_link, target: "_blank"%>
+  <br><br>
 <% end %>
 
-<br><br>
 
 <h4> Deadline :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h4> 
 

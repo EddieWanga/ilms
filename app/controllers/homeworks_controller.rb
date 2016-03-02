@@ -1,3 +1,6 @@
+require 'google/api_client'
+require 'google_drive'
+
 class HomeworksController < ApplicationController
   before_action :authenticate_user!
   before_action :is_valid_user? 
@@ -13,15 +16,23 @@ class HomeworksController < ApplicationController
   end
 
   def create
-    @homework = Homework.create(homework_params)
+    @homework = Homework.new(homework_params)
     if @homework.save
-      users = User.where(role: 1)
-      users.each do |user|
-        UserMailer.notify_new_homework(user, @homework, root_url, homework_path(@homework)).deliver_later! 	 	
+      attachment = @homework.attachment
+      begin
+        upload_to_google_drive(attachment)
+      rescue
+        flash[:alert] = "上傳到 Google Drive 失敗 ~ QAQ"
+        render :edit
+      else
+        users = User.where(role: 1)
+        users.each do |user|
+          UserMailer.notify_new_homework(user, @homework, root_url, homework_path(@homework)).deliver_later! 	 	
+        end
+        redirect_to homework_path(@homework), notice: "上傳檔案成功！"
       end
-      redirect_to homework_path(@homework.id), notice: "成功新增一項作業"
     else
-      flash[:alert] = "請不要什麼都不填QAQ"
+      flash[:alert] = "請不要什麼都不填，或者檔案超過50MB QAQ"
       render :new
     end
   end
@@ -48,11 +59,19 @@ class HomeworksController < ApplicationController
   def update
     @homework = Homework.find(params[:id])
     if @homework.update(homework_params)
-      users = User.where(role: 1)
-      users.each do |user|
-        UserMailer.notify_new_homework(user, @homework, root_url, homework_path(@homework)).deliver_later! 	 	
+      attachment = @homework.attachment
+      begin
+        upload_to_google_drive(attachment)
+      rescue
+        flash[:alert] = "上傳到 Google Drive 失敗 ~ QAQ"
+        render :edit
+      else
+        users = User.where(role: 1)
+        users.each do |user|
+          UserMailer.notify_new_homework(user, @homework, root_url, homework_path(@homework)).deliver_later! 	 	
+        end
+        redirect_to homework_path(@homework), notice: "更新成功！"
       end
-      redirect_to homework_path(@homework.id), notice: "作業更新成功！"
     else
       flash[:alert] = "是不是有什麼東西沒有填到？"
       render :edit
@@ -64,12 +83,6 @@ class HomeworksController < ApplicationController
     @homework.destroy
     redirect_to homeworks_path, alert: "作業已刪除"
   end
-
-=begin
-  def download
-    send_file(File.join(Rails.root, "public", "uploads", "answer", "attachment", "1", "output.img"))
-  end
-=end
 
 private
    

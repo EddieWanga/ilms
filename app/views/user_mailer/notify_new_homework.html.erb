@@ -11,7 +11,7 @@
     
     <% if @attachment_url != nil %>
       <h3> Attachment </h3>
-      <%= link_to "Download", @root_url + @attachment_url %>
+      <%= link_to "Download", @attachment_url %>
     <% end %>
     
     <h3> Deadline :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h3> 
