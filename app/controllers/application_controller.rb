@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
 protected
   
   def upload_to_google_drive(attachment)
-    if attachment != nil
+    if attachment.current_path != nil
       cert_path = Gem.loaded_specs['google-api-client'].full_gem_path+'/lib/cacerts.pem'
       ENV['SSL_CERT_FILE'] = cert_path
       
@@ -24,6 +24,8 @@ protected
       @homework.download_link = "https://drive.google.com/file/d/" + file.id + "/view?usp=sharing"
       @homework.save
       attachment.remove!
+	else
+      return 0	
     end
   end
 

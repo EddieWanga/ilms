@@ -58,10 +58,13 @@ class HomeworksController < ApplicationController
   
   def update
     @homework = Homework.find(params[:id])
+    old_attachment_path = @homework.attachment.path
     if @homework.update(homework_params)
       attachment = @homework.attachment
       begin
-        upload_to_google_drive(attachment)
+        if old_attachment_path != attachment.current_path
+          upload_to_google_drive(attachment)
+        end
       rescue
         flash[:alert] = "上傳到 Google Drive 失敗 ~ QAQ"
         render :edit
