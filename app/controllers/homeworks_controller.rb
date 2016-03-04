@@ -18,9 +18,8 @@ class HomeworksController < ApplicationController
   def create
     @homework = Homework.new(homework_params)
     if @homework.save
-      attachment = @homework.attachment
       begin
-        upload_to_google_drive(attachment)
+        upload_to_google_drive(@homework)
       rescue
         flash[:alert] = "上傳到 Google Drive 失敗 ~ QAQ"
         render :edit
@@ -63,7 +62,7 @@ class HomeworksController < ApplicationController
       attachment = @homework.attachment
       begin
         if old_attachment_path != attachment.current_path
-          upload_to_google_drive(attachment)
+          upload_to_google_drive(@homework)
         end
       rescue
         flash[:alert] = "上傳到 Google Drive 失敗 ~ QAQ"

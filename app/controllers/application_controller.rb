@@ -6,14 +6,15 @@ class ApplicationController < ActionController::Base
 
 protected
   
-  def upload_to_google_drive(attachment)
+  def upload_to_google_drive(object)
+    attachment = object.attachment
     if attachment.current_path != nil
       cert_path = Gem.loaded_specs['google-api-client'].full_gem_path+'/lib/cacerts.pem'
       ENV['SSL_CERT_FILE'] = cert_path
       
       folder_name = "sprout"
       attachment_path = attachment.current_path
-      file_name = attachment_path.split("/")[-4..-1].join("/")
+      file_name = attachment_path.split("/")[-4..-1].join("_")
       
       session = GoogleDrive.saved_session("config.json")
       folder = session.collection_by_title(folder_name)
@@ -21,11 +22,9 @@ protected
 
       folder.add(file)
       session.root_collection.remove(file)
-      @homework.download_link = "https://drive.google.com/file/d/" + file.id + "/view?usp=sharing"
-      @homework.save
+      object.download_link = "https://drive.google.com/file/d/" + file.id + "/view?usp=sharing"
+      object.save
       attachment.remove!
-	else
-      return 0	
     end
   end
 
