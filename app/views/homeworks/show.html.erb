@@ -40,22 +40,20 @@
     <thead>
       <th> Name </th>
       <th> Title </th>
-      <th> File </th>
       <th> Submission Time </th>
-      <th> Point </th>
+      <th>  Review </th>
     </thead>
     <tbody>
       <% @answers.each do |answer| %>
         <tr>
           <td> <%= answer.author.name %> </td>
           <td> <%= link_to answer.title, homework_answer_path(@homework, answer) %> </td>
-          <td> <%= link_to "Download", answer.attachment.url %> </td>
           <td> <%= submit_time(@homework.deadline, answer.updated_at) %> </td>
           <td>
             <% if is_reviewed?(answer) %>
               <%= link_to answer.review.point, homework_answer_path(@homework, answer) %>
             <% else %>
-              <%= link_to "Review", homework_answer_path(@homework, answer), class: "btn btn-primary" %>
+              <%= link_to "Review", homework_answer_path(@homework, answer), class: "btn btn-warning pull-center" %>
             <% end %>
           </td>
         </tr>
