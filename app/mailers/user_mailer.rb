@@ -11,7 +11,7 @@ class UserMailer < ApplicationMailer
     @answer = answer
     @user = user
     @homework = answer.homework
-    @url = @answer.attachment.url
+    @url = @answer.download_link
     @root_url = home_url.chomp('/')
     mail(to: user.email, subject: "[資訊之芽作業繳交留存] #{@homework.title} - #{@answer.title}")
   end
