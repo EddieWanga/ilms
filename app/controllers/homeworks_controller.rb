@@ -39,10 +39,17 @@ class HomeworksController < ApplicationController
   def show
     @homework = Homework.find(params[:id])
     if current_user.role == 0 # If current user is member of administration group
-      @answers = @homework.answers
-      @submitted_students = @homework.members.to_a
-      @students = User.where(role: 1).to_a
-      @non_submitted_students = @students - @submitted_students
+      @answers = @homework.answers.to_a
+      @submitted_students = @homework.members
+            
+      @reviewed_answers = Array.new
+      @answers.each do |answer|
+        if answer.review != nil
+          @reviewed_answers << answer
+        end
+      end
+      @unreviewed_answers = @answers - @reviewed_answers
+      @non_submitted_students = User.where(role: 1) - @submitted_students
     elsif current_user.is_member_of?(@homework)
       @answer = @homework.answers.find_by(author: current_user)
       @review = @answer.review 

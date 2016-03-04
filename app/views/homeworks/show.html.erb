@@ -34,51 +34,35 @@
 <br><br>
 
 <% if is_admin?(current_user) %>
-  <h1> 已交名單 </h1>
-  <hr>
-  <table class="table table-hover">
-    <thead>
-      <th> Name </th>
-      <th> Title </th>
-      <th> Submission Time </th>
-      <th>  Review </th>
-    </thead>
-    <tbody>
-      <% @answers.each do |answer| %>
-        <tr>
-          <td> <%= answer.author.name %> </td>
-          <td> <%= link_to answer.title, homework_answer_path(@homework, answer) %> </td>
-          <td> <%= submit_time(@homework.deadline, answer.updated_at) %> </td>
-          <td>
-            <% if is_reviewed?(answer) %>
-              <%= link_to answer.review.point, homework_answer_path(@homework, answer) %>
-            <% else %>
-              <%= link_to "Review", homework_answer_path(@homework, answer), class: "btn btn-warning pull-center" %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  
+  <h1> 未批改名單</h1>
+  <div style="height:300px; overflow:auto;" >
+    <%= render partial: 'submit_list', locals: {answers: @unreviewed_answers} %>
+  </div>
+   
+  <h1> 已批改名單 </h1>
+  <div style="height:300px; overflow:auto;" >
+    <%= render partial: 'submit_list', locals: {answers: @reviewed_answers} %> 
+  </div>
   <br><br>
 
   <h1> 未交名單 </h1>
   <hr>
-  <table class="table table-hover">
-    <thead>
-      <th> Name </th>
-      <th> Email </th>
-    </thead>
-    <tbody>
-      <% @non_submitted_students.each do |student| %>
-        <tr>
-          <td> <%= student.name  %> </td>
-          <td> <%= student.email %> </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
+  <div style="height:300px; overflow:auto;" >
+    <table class="table table-hover">
+      <thead>
+        <th> Name </th>
+        <th> Email </th>
+      </thead>
+      <tbody>
+        <% @non_submitted_students.each do |student| %>
+          <tr>
+            <td> <%= student.name  %> </td>
+            <td> <%= student.email %> </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 <% elsif @answer != nil %>
   
   <%= render 'answers/content' %>
