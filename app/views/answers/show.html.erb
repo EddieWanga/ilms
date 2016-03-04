@@ -10,7 +10,7 @@
     <%= f.input :point, input_html: { class: "form-control" }, label: false %>
     
     <h3> Comment </h3> 
-    <%= f.input :comment, input_html: { class: "form-control", id: "wysiwyg" }, label: false %>
+    <%= f.input :comment, input_html: { class: "ckeditor" }, label: false %>
     <%= render partial: 'common/editor_script' %>
 
     <%= f.submit "Submit", class: "btn btn-primary", data: {diable_with: "Submitting..."} %> 
