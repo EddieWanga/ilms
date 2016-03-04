@@ -7,7 +7,7 @@
   <%= render partial: 'common/editor', locals: { f: f, description: :description} %> 
   
   <h3> Attachment </h3>
-  <% if @answer.attachment.url != nil %>  
+  <% if @answer.download_link != nil %>  
     你當前的檔案：<%= link_to File.basename(@answer.attachment.path), @answer.download_link, target: "_blank" %>
     <br><br>
   <% end %>
