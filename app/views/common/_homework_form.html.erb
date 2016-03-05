@@ -18,6 +18,11 @@
   <font color="red"> 請不要上傳超過50MB的檔案 </font><%= f.input :attachment, label: false %> 
   
   <br>
+  
+  <h4> Class </h4>
+  <%= f.input :district, collection: ['CLang', 'PyLang'], label: false %>
+  
+  <br>
    
   <h4> Deadline </h4>
   <%= f.input :deadline, :class => 'datepicker', label: false %>

@@ -7,8 +7,10 @@ class HomeworksController < ApplicationController
   before_action :is_admin?, except: [:show, :index]
   
   def index
-    @homeworks = Homework.all
-    @total_student_counts = User.where(role: 1).size
+    @clang_homeworks = Homework.where(district: "CLang")
+    @pylang_homeworks = Homework.where(district: "PyLang")
+    @clang_student_counts = User.where(role: 1, district: "CLang").size
+    @pylang_student_counts = User.where(role: 1, district: "PyLang").size
   end
 
   def new
@@ -40,16 +42,18 @@ class HomeworksController < ApplicationController
     @homework = Homework.find(params[:id])
     if current_user.role == 0 # If current user is member of administration group
       @answers = @homework.answers.to_a
-      @submitted_students = @homework.members
+      submitted_students = @homework.members.where(district: @homework.district)
             
       @reviewed_answers = Array.new
+      @unreviewed_answers = Array.new
       @answers.each do |answer|
         if answer.review != nil
           @reviewed_answers << answer
+        else
+          @unreviewed_answers << answer
         end
       end
-      @unreviewed_answers = @answers - @reviewed_answers
-      @non_submitted_students = User.where(role: 1) - @submitted_students
+      @non_submitted_students = User.where(role: 1, district: @homework.district) - submitted_students
     elsif current_user.is_member_of?(@homework)
       @answer = @homework.answers.find_by(author: current_user)
       @review = @answer.review 
@@ -96,7 +100,7 @@ class HomeworksController < ApplicationController
 private
    
   def homework_params
-    params.require(:homework).permit(:title, :description, :deadline, :attachment)
+    params.require(:homework).permit(:title, :description, :deadline, :attachment, :district)
   end
   
   def is_admin?

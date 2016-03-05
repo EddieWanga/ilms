@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160304063105) do
+ActiveRecord::Schema.define(version: 20160305172541) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "title"
@@ -65,6 +65,7 @@ ActiveRecord::Schema.define(version: 20160304063105) do
     t.datetime "deadline"
     t.string   "attachment"
     t.string   "download_link"
+    t.string   "district"
   end
 
   create_table "reviews", force: :cascade do |t|
