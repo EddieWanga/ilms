@@ -1,15 +1,17 @@
-<center> <h1>sign in</h1> </center>
+<div class="sign">
+  <center> <h1>sign in</h1> </center>
+  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+    <div class="form-inputs">
+      <%= f.input :email, required: false, autofocus: true %>
+      <%= f.input :password, required: false %>
+      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
+    </div>
 
-<%= simple_form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="form-inputs">
-    <%= f.input :email, required: false, autofocus: true %>
-    <%= f.input :password, required: false %>
-    <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-  </div>
+    <div class="form-actions">
+      <%= f.button :submit, "Sign in", class: "btn btn-primary", data: { disable_with: "Submitting..." } %> 
+      還沒取得帳號嗎？<%= link_to "請點此取得帳號", get_account_path %>
+    </div>
+  <% end %>
+</div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Sign in", class: "btn btn-primary", data: { disable_with: "Submitting..." } %> 
-    還沒取得帳號嗎？<%= link_to "請點此取得帳號", get_account_path %>
-  </div>
-<% end %>
-
+<%= render 'common/sign_up_style' %>

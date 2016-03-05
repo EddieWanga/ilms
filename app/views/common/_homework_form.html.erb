@@ -21,5 +21,9 @@
    
   <h4> Deadline </h4>
   <%= f.input :deadline, :class => 'datepicker', label: false %>
+  
+  <br>
+
+  <%= f.submit "Submit", class: "btn btn-primary", data: {disable_with: "Submitting..."} %> 
+  <%= link_to "Back", :back, class: "btn btn-default" %> 
 </div>
-<%= f.submit "Submit", class: "btn btn-primary", data: {disable_with: "Submitting..."} %> 

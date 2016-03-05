@@ -1,28 +1,30 @@
-<h2>Edit Password</h2>
-<br>
-<%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= f.error_notification %>
+<div class="dist">
+  <h2>Edit Password</h2>
+  <hr>
+  <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
+    <%= f.error_notification %>
 
-  <div class="form-inputs">
+    <div class="form-inputs">
 
-    <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-      <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
-    <% end %>
-    
-    <h4> Current Password </h4>
-    <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true, label: false %>
-    
-    <h4> New Password </h4>
-    <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false, label: false %>
-    
-    <h4> New Password Confirmation </h4>
-    <%= f.input :password_confirmation, required: false, label: false %>
-  </div>
+      <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+        <p>Currently waiting confirmation for: <%= resource.unconfirmed_email %></p>
+      <% end %>
+      
+      <h4> Current Password </h4>
+      <%= f.input :current_password, hint: "we need your current password to confirm your changes", required: true, label: false %>
+      
+      <h4> New Password </h4>
+      <%= f.input :password, autocomplete: "off", hint: "leave it blank if you don't want to change it", required: false, label: false %>
+      
+      <h4> New Password Confirmation </h4>
+      <%= f.input :password_confirmation, required: false, label: false %>
+    </div>
 
-  <div class="form-actions">
-    <%= f.button :submit, "Update", class: "btn btn-primary", data: {disable_with: "Submitting..."} %>
-    <%= link_to "Back", :back, class: "btn btn-default" %>
-  </div>
-<% end %>
+    <div class="form-actions">
+      <%= f.button :submit, "Update", class: "btn btn-primary", data: {disable_with: "Submitting..."} %>
+      <%= link_to "Back", :back, class: "btn btn-default" %>
+    </div>
+  <% end %>
+</div>
 
 
