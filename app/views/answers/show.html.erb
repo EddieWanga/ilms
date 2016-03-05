@@ -15,6 +15,7 @@
       <%= render partial: 'common/editor_script' %>
 
       <%= f.submit "Submit", class: "btn btn-primary", data: {disable_with: "Submitting..."} %> 
+      <%= link_to "Back", :back, class: "btn btn-default" %>
     <% end %>
   </div>
 <% end %>
