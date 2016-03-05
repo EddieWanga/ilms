@@ -45,7 +45,7 @@ class ReviewsController < ApplicationController
       redirect_to homework_path(@homework), notice: "成功更改評分！"
     else
       flash[:alert] = "至少幫他打個分數吧OAO！"
-      render :new 
+      render 'answers/show'
     end
   end
 
