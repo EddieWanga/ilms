@@ -30,4 +30,18 @@
  */
 
  @import "bootstrap"; 
-  
+ 
+body {
+    background: rgb(228, 229, 233);
+}
+
+h1, h2, h3, h4, h5, th, tr {
+    color: black;
+}
+
+div.dist {
+    background: rgb(250, 250, 250);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+

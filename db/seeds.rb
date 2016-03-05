@@ -15,12 +15,12 @@ names.each do |name|
   else
     email = name + "@gapp.nthu.edu.tw"
   end
-  password = SecureRandom.base64(60)
+  password = "123456789"
   confirm_code = SecureRandom.base64(60)
   User.create(
     email: email, 
     name: name, 
-    role: 2, 
+    role: 1, 
     password: password, 
     confirm_code: confirm_code
   )
