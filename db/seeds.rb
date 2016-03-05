@@ -6,12 +6,13 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-User.create(email: "teacher@gmail.com", name: "Teacher", role: 0, password: "123456789")
-names = ["hkhs7821", "foy2803", "s102062111", "sproutstudent"] 
+# User.create(email: "teacher@gmail.com", name: "Teacher", role: 0, password: "123456789")
+# names = ["hkhs7821", "foy2803", "s102062111", "sproutstudent", "skyle0115"] 
+names = ["hkhs7821"]
 names.each do |name|
   email = nil
   if name != "s102062111"
-    email = name + "@gmail.com"
+    email = name + "@yahoo.com.tw"
   else
     email = name + "@gapp.nthu.edu.tw"
   end
