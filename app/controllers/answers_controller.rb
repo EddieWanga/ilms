@@ -4,13 +4,13 @@ require 'google_drive'
 class AnswersController < ApplicationController
   before_action :authenticate_user!  
   before_action :is_valid_user? 
-  
+  before_action :find_homework, except: [:index]
+   
   def index
     @answers = Answer.all
   end
   
   def new
-    @homework = Homework.find(params[:homework_id])
     if !current_user.is_member_of?(@homework)
       @answer = @homework.answers.new
     else
@@ -19,7 +19,6 @@ class AnswersController < ApplicationController
   end
 
   def create
-    @homework = Homework.find(params[:homework_id])
     if !current_user.is_member_of?(@homework)
       @answer = @homework.answers.build(answer_params)
       @answer.author = current_user
@@ -44,7 +43,6 @@ class AnswersController < ApplicationController
   end
   
   def edit
-    @homework = Homework.find(params[:homework_id])
     if current_user.is_member_of?(@homework)
       @answer = @homework.answers.find(params[:id])
       if @answer.author != current_user
@@ -57,7 +55,6 @@ class AnswersController < ApplicationController
   end
 
   def update
-    @homework = Homework.find(params[:homework_id])
     if current_user.is_member_of?(@homework)
       @answer = @homework.answers.find(params[:id])
       old_attachment_path = @answer.attachment.path
@@ -85,7 +82,6 @@ class AnswersController < ApplicationController
   end
 
   def show
-    @homework = Homework.find(params[:homework_id])
     @answer = Answer.find(params[:id])
     if is_admin?(current_user)
       @review = @answer.review
@@ -98,7 +94,6 @@ class AnswersController < ApplicationController
   end
 
   def destroy
-    @homework = Homework.find(params[:homework_id])
     if current_user.is_member_of?(@homework)
       current_user.quit!(@homework)
       @answer = @homework.answers.find(params[:id])
@@ -117,6 +112,13 @@ private
       flash[:notice] = "繳交作業成功！"
     else
       flash[:alert] = "你已經繳交作業了！"
+    end
+  end
+  
+  def find_homework
+    @homework = Homework.find(params[:homework_id])
+    if @homework.district != current_user.district
+      redirect_to homeworks_path, alert: "你應該不是#{@homework.district}的學員XD"
     end
   end
 
