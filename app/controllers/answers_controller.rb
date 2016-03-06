@@ -22,7 +22,6 @@ class AnswersController < ApplicationController
     if !current_user.is_member_of?(@homework)
       @answer = @homework.answers.build(answer_params)
       @answer.author = current_user
-      current_user.join!(@homework) # submit the homework
       if @answer.save
         begin
           upload_to_google_drive(@answer)
@@ -30,6 +29,7 @@ class AnswersController < ApplicationController
           flash[:alert] = "雖然你已經把作業交上去，不過上傳檔案失敗，再試一次好嗎 ~ QAQ"
           render :edit
         else
+          current_user.join!(@homework) # submit the homework
           UserMailer.notify_submit(current_user, @answer, root_url).deliver_later! 	 	
           redirect_to homework_path(@homework), notice: "繳交作業成功！"
         end
