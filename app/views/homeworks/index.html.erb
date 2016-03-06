@@ -1,8 +1,5 @@
 <div class="dist">
   <h1> CLang Homework </h1>
-  <% if is_admin?(current_user) %>
-    <%= link_to("New Homework", new_homework_path, class: "btn btn-primary pull-right") %>
-  <% end %>
   <%= render partial: 'homework_list', locals: {homeworks: @clang_homeworks} %>
 </div>
 
