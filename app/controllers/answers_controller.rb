@@ -117,7 +117,9 @@ private
   
   def find_homework
     @homework = Homework.find(params[:homework_id])
-    if @homework.district != current_user.district
+    if is_admin?(current_user)
+      return
+    elsif @homework.district != current_user.district
       redirect_to homeworks_path, alert: "你應該不是#{@homework.district}的學員XD"
     end
   end
