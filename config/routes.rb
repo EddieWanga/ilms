@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'get_account', to: 'topics#get_account'
   post 'send_account', to: 'topics#send_account'
   
+
+
   root 'homeworks#index'
   
   resources :homeworks do
@@ -20,6 +22,7 @@ Rails.application.routes.draw do
       resources :reviews
     end
   end
+  get 'homeworks/:id/remind', to: 'homeworks#remind', as: 'remind_homework'
   # get 'download', :to => 'homeworks#download'
 
   # The priority is based upon order of creation: first created -> highest priority.
