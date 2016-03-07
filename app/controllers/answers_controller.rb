@@ -119,7 +119,7 @@ private
     @homework = Homework.find(params[:homework_id])
     if is_admin?(current_user)
       return
-    elsif @homework.district != current_user.district
+    elsif !can_submit_homework?(current_user, @homework)
       redirect_to homeworks_path, alert: "你應該不是#{@homework.district}的學員XD"
     end
   end
@@ -130,5 +130,17 @@ private
 
   def is_admin?(user)
     return current_user && current_user.role == 0
+  end
+  
+  def can_submit_homework?(user, homework)
+    if is_admin?(user)
+      return false
+    elsif user.district == nil
+      return true
+    elsif user.district == homework.district
+      return true
+    else
+      return false
+    end
   end
 end

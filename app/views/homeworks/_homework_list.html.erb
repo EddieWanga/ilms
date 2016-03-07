@@ -12,7 +12,7 @@
     <% homeworks.each do |homework| %>
       <tr>
         <td>
-          <% if current_user.district == homework.district %>
+          <% if can_submit_homework?(current_user, homework) %>
             <% if current_user.is_member_of?(homework) %>
               <span class="label label-success">已繳交</span>
             <% else %>
@@ -24,13 +24,7 @@
         </td>
         <td> <%= link_to(homework.title, homework_path(homework)) %>  </td>
         <td> <%= get_time(homework.deadline, Time.now.to_datetime) %>  </td>
-        <td>
-          <% if homework.district == "CLang" %>
-            <%= homework.answers.count %> / <%= @clang_student_counts %> 
-          <% else %>
-            <%= homework.answers.count %> / <%= @pylang_student_counts %>
-          <% end %> 
-        </td>
+        <td> <%= homework.answers.count %> </td>
       </tr>
     <% end %>
   </tbody>

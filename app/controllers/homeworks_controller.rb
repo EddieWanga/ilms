@@ -9,8 +9,6 @@ class HomeworksController < ApplicationController
   def index
     @clang_homeworks = Homework.where(district: "CLang")
     @pylang_homeworks = Homework.where(district: "PyLang")
-    @clang_student_counts = User.where(role: 1, district: "CLang").size
-    @pylang_student_counts = User.where(role: 1, district: "PyLang").size
   end
 
   def new
@@ -26,11 +24,8 @@ class HomeworksController < ApplicationController
         flash[:alert] = "上傳到 Google Drive 失敗 ~ QAQ"
         render :edit
       else
-        users = User.where(role: 1)
-        users.each do |user|
-          UserMailer.notify_new_homework(user, @homework, root_url, homework_path(@homework)).deliver_later! 	 	
-        end
-        redirect_to homework_path(@homework), notice: "上傳檔案成功！"
+        send_homework_email(User.where(role: 1, district: [@homework.district, nil]))
+        redirect_to homework_path(@homework), notice: "新增作業成功！"
       end
     else
       flash[:alert] = "請不要什麼都不填，或者檔案超過50MB QAQ"
@@ -79,10 +74,7 @@ class HomeworksController < ApplicationController
         flash[:alert] = "上傳到 Google Drive 失敗 ~ QAQ"
         render :edit
       else
-        users = User.where(role: 1)
-        users.each do |user|
-          UserMailer.notify_new_homework(user, @homework, root_url, homework_path(@homework)).deliver_later! 	 	
-        end
+        send_homework_email(User.where(role: 1, district: [@homework.district, nil]))
         redirect_to homework_path(@homework), notice: "更新成功！"
       end
     else
@@ -108,4 +100,15 @@ private
       raise ActionController::RoutingError.new('Not Found') 
     end
   end 
+
+  def send_homework_email(users)
+    users.each do |user|
+      UserMailer.notify_new_homework(
+        user, 
+        @homework, 
+        root_url, 
+        homework_path(@homework)
+      ).deliver_later! 	 	
+    end
+  end
 end

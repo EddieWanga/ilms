@@ -44,4 +44,16 @@ module ApplicationHelper
       content_tag(:font, current_time.to_s.split(' ')[0..1].join(' '))
     end  
   end
+
+  def can_submit_homework?(user, homework)
+    if is_admin?(user)
+      return false
+    elsif user.district == nil
+      return true
+    elsif user.district == homework.district
+      return true
+    else
+      return false
+    end
+  end
 end
