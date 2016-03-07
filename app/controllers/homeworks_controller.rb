@@ -89,6 +89,13 @@ class HomeworksController < ApplicationController
     redirect_to homeworks_path, alert: "作業已刪除"
   end
 
+  def remind
+    @homework = Homework.find(params[:id])
+    users = User.where(role: 1, district: [@homework.district, nil]) - @homework.members
+    send_homework_email(users)  
+    redirect_to homework_path(@homework), notice: "已發出提醒信！"
+  end
+
 private
    
   def homework_params

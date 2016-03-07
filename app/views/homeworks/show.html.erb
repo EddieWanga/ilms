@@ -6,7 +6,8 @@
   <div class="homework">
     <% if is_admin?(current_user) %>
       <%= link_to("EDIT", edit_homework_path, class: "btn btn-warning pull-right") %>
-      <%= link_to("DELETE", homework_path(@homework), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "Are you sure ?" }) %>
+      <%= link_to("DELETE", homework_path(@homework), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "你確定不是手誤要刪除作業嗎?" }) %>
+      <%= link_to("REMIND", remind_homework_path(@homework), class: "btn btn-success pull-right", data: { confirm: "要給學員們一封提醒信嗎？" }) %>
     <% elsif can_submit_homework?(current_user, @homework) && !current_user.is_member_of?(@homework) %>
       <%= link_to("交作業", new_homework_answer_path(@homework), class: "btn btn-primary pull-right") %>
     <% end %>
