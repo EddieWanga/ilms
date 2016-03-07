@@ -7,7 +7,7 @@
     <% if is_admin?(current_user) %>
       <%= link_to("EDIT", edit_homework_path, class: "btn btn-warning pull-right") %>
       <%= link_to("DELETE", homework_path(@homework), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "Are you sure ?" }) %>
-    <% elsif current_user.district == @homework.district && !current_user.is_member_of?(@homework)%>
+    <% elsif can_submit_homework?(current_user, @homework) && !current_user.is_member_of?(@homework) %>
       <%= link_to("交作業", new_homework_answer_path(@homework), class: "btn btn-primary pull-right") %>
     <% end %>
   </div>
