@@ -56,4 +56,22 @@ module ApplicationHelper
       return false
     end
   end
+
+  def get_role(user)
+    if user.role == 0
+      "Teacher"
+    elsif user.role == 1
+      "Student"
+    else
+      content_tag(:font, "Unconfirmed User", color: "red")
+    end
+  end
+
+  def get_class(user)
+    if user.district == nil
+      return "PyLang & CLang"
+    else
+      return user.district
+    end
+  end
 end
