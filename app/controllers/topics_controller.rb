@@ -48,9 +48,8 @@ class TopicsController < ApplicationController
   def user_management
     students = User.where(role: 1)
     @teachers = User.where(role: 0)
-    @pylang_students = students.where(district: "PyLang")
-    @clang_students = students.where(district: "CLang")
-    @double_class_students = students.where(district: nil)
+    @pylang_students = students.where(district: ["PyLang", nil])
+    @clang_students = students.where(district: ["CLang", nil])
     @unconfirmed_users = User.where(role: 2)
   end
 
