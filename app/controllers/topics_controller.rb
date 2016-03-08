@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :authenticate_user!, only: [:welcome, :verify_account]
+  before_action :authenticate_user!, only: [:welcome, :verify_account, :user_profile]
   before_action :is_login?, only: [:get_account, :send_account]
   
   def welcome
@@ -39,7 +39,9 @@ class TopicsController < ApplicationController
       render :get_account
     end
   end
-
+  
+  def user_profile
+  end
 private
 
   def topic_params

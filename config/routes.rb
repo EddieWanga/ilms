@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'get_account', to: 'topics#get_account'
   post 'send_account', to: 'topics#send_account'
   
+  get 'user_profile', to: 'topics#user_profile'  
 
 
   root 'homeworks#index'

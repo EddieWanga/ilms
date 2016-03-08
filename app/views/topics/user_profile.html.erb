@@ -1,0 +1,10 @@
+<div class="dist">
+  <%= link_to("修改密碼", edit_user_registration_path(current_user), class: "btn btn-success pull-right") %> 
+  <h1> 個人資料 </h1>
+  <hr>
+
+  <h3> Name : <%= current_user.name %> </h3> <br>
+  <h3> Email : <%= current_user.email %> </h3> <br>
+  <h3> Class : <%= get_class(current_user) %> </h3> <br>
+  <h3> Role : <%= get_role(current_user) %> </h3> <br>
+</div>
