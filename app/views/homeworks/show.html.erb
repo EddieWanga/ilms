@@ -29,7 +29,6 @@
     <br><br>
   <% end %>
 
-
   <h4> Deadline :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h4> 
 </div>
 
@@ -51,24 +50,7 @@
   <div class="dist"> 
     <h1> 未交名單 </h1>
     <hr>
-    <div style="height:300px; overflow:auto;" >
-      <table class="table table-hover">
-        <thead>
-          <th> Class </th>
-          <th> Name </th>
-          <th> Email </th>
-        </thead>
-        <tbody>
-          <% @non_submitted_students.each do |student| %>
-            <tr>
-              <td> <%= student.district %> </td>
-              <td> <%= student.name  %> </td>
-              <td> <%= student.email %> </td>
-            </tr>
-          <% end %>
-        </tbody>
-      </table>
-    </div>
+    <%= render partial: 'common/student_table', locals: { students: @non_submitted_students } %>
   </div>
 <% elsif @answer != nil %>
   <div class="dist"> 

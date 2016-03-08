@@ -14,8 +14,8 @@ Rails.application.routes.draw do
   post 'send_account', to: 'topics#send_account'
   
   get 'user_profile', to: 'topics#user_profile'  
-
-
+  get 'user_management', to: 'topics#user_management'
+  
   root 'homeworks#index'
   
   resources :homeworks do
