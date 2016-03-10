@@ -18,6 +18,7 @@
 
 *.swp
 *.swo
+*.csv
 email.yml
 /public/uploads
 /public/assets
