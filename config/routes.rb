@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get 'user_profile', to: 'topics#user_profile'  
   get 'user_management', to: 'topics#user_management'
   
+  get 'help', to: 'topics#help'
+   
   root 'homeworks#index'
   
   resources :homeworks do
