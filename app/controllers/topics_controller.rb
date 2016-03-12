@@ -1,5 +1,5 @@
 class TopicsController < ApplicationController
-  before_action :authenticate_user!, except: [:get_account, :send_account]
+  before_action :authenticate_user!, except: [:get_account, :send_account, :help]
   before_action :is_confirmed_user?, only: [:welcome, :verify_account]
   before_action :is_admin?, only: [:user_management]
   before_action :is_login?, only: [:get_account, :send_account]
@@ -51,6 +51,9 @@ class TopicsController < ApplicationController
     @pylang_students = students.where(district: ["PyLang", nil])
     @clang_students = students.where(district: ["CLang", nil])
     @unconfirmed_users = User.where(role: 2)
+  end
+
+  def help
   end
 
 private
