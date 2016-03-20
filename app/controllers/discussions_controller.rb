@@ -22,6 +22,8 @@ class DiscussionsController < ApplicationController
   end
 
   def show
+    @messages = @discussion.messages.all
+    @message = @discussion.messages.build
   end
   
   def edit

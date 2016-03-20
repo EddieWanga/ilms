@@ -27,7 +27,9 @@ Rails.application.routes.draw do
   end
   get 'homeworks/:id/remind', to: 'homeworks#remind', as: 'remind_homework'
   
-  resources :discussions
+  resources :discussions do
+    resources :messages
+  end
   # get 'download', :to => 'homeworks#download'
 
   # The priority is based upon order of creation: first created -> highest priority.
