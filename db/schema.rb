@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160305172541) do
+ActiveRecord::Schema.define(version: 20160320181401) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "title"
@@ -49,6 +49,14 @@ ActiveRecord::Schema.define(version: 20160305172541) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "discussions", force: :cascade do |t|
+    t.string   "title"
+    t.string   "email"
+    t.text     "description"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   create_table "homework_users", force: :cascade do |t|
     t.integer  "homework_id"
     t.integer  "user_id"
@@ -66,6 +74,14 @@ ActiveRecord::Schema.define(version: 20160305172541) do
     t.string   "attachment"
     t.string   "download_link"
     t.string   "district"
+  end
+
+  create_table "messages", force: :cascade do |t|
+    t.text     "description"
+    t.integer  "discussion_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.integer  "user_id"
   end
 
   create_table "reviews", force: :cascade do |t|
