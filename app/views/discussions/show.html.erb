@@ -1,0 +1,16 @@
+<div class="dist">
+  <h1> 討論區 </h1>
+  <hr>
+
+  <% if current_user.email == @discussion.email %>  
+    <%= link_to "刪除討論", discussion_path(@discussion), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "你確定要刪除討論嗎？" } %>
+    <%= link_to "修改討論", edit_discussion_path(@discussion), class: "btn btn-success pull-right" %>
+  <% end %>
+  <h3> Title </h3>
+  <%= @discussion.title %>
+
+  <br>
+
+  <h3> Description </h3>
+  <%= @discussion.description.html_safe %>
+</div>
