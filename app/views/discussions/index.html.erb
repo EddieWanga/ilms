@@ -12,7 +12,7 @@
     <% @discussions.each do |discussion| %>
       <tr>
         <td> <%= link_to discussion.title, discussion_path(discussion) %> </td>
-        <td> <%= discussion.email %>
+        <td> <%= discussion.messages.count %> </td>
       </tr>
     <% end %>
   </tbody>
