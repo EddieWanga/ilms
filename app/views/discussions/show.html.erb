@@ -37,3 +37,11 @@
     <%= f.submit "回覆", class: "btn btn-primary", data: { disable_with: "REPLYING..." } %>
   <% end %>
 </div>
+
+<script>
+  $(document).ready(function(){
+	  $("img").each(function(index) {
+		$(this).removeAttr("style") ;
+	  })
+  });
+</script>

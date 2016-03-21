@@ -38,6 +38,10 @@ body, html {
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+img {
+    width: 100%;
+}
 /*
 body {
     background: rgb(228, 229, 233);
