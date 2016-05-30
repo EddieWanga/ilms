@@ -1,0 +1,23 @@
+<div class="dist">
+  <h1> PyLang </h1>
+  <hr>
+  <%= render partial: 'common/student_table', locals: { students: @pylang_students } %>
+</div>
+
+<div class="dist">
+  <h1> CLang </h1>
+  <hr>
+  <%= render partial: 'common/student_table', locals: { students: @clang_students } %>
+</div>
+
+<div class="dist">
+  <h1> <font color="red"> Unconfirmed </font> </h1>
+  <hr>
+  <%= render partial: 'common/student_table', locals: { students: @unconfirmed_users } %>
+</div>
+
+<div class="dist">
+  <h1> Teacher </h1>
+  <hr>
+  <%= render partial: 'common/student_table', locals: { students: @teachers } %> 
+</div>

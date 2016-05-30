@@ -1,0 +1,9 @@
+<%= simple_form_for(@discussion) do |f| %>
+  <h4> Title </h4>
+  <%= f.input :title, label: false %>
+
+  <h4> Description </h4>
+  <%= render partial: 'common/editor', locals: { f: f } %>
+
+  <%= f.submit "Submit", class: "btn btn-primary", data: {disable_with: "Submitting.."} %>
+<% end %>

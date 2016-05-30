@@ -44,4 +44,34 @@ module ApplicationHelper
       content_tag(:font, current_time.to_s.split(' ')[0..1].join(' '))
     end  
   end
+
+  def can_submit_homework?(user, homework)
+    if is_admin?(user)
+      return false
+    elsif user.district == nil
+      return true
+    elsif user.district == homework.district
+      return true
+    else
+      return false
+    end
+  end
+
+  def get_role(user)
+    if user.role == 0
+      "Teacher"
+    elsif user.role == 1
+      "Student"
+    else
+      content_tag(:font, "Unconfirmed User", color: "red")
+    end
+  end
+
+  def get_class(user)
+    if user.district == nil
+      return "PyLang & CLang"
+    else
+      return user.district
+    end
+  end
 end

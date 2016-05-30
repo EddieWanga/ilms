@@ -1,6 +1,6 @@
 class Homework < ActiveRecord::Base
   mount_uploader :attachment, AttachmentUploader
-  validates :title, :description, presence: true 
+  validates :title, :description, :district, presence: true 
   validate :attachment_size_validation, :if => "attachment?"
 
   has_many :answers

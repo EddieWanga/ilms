@@ -1,28 +1,9 @@
-<h1> 大家開心一起玩吧～ ! </h1>
-<% if is_admin?(current_user) %>
-  <%= link_to("New Homework", new_homework_path, class: "btn btn-primary pull-right") %>
-<% end %>
-<table class="table table-hover">
-  <thead>
-    <th> 狀態 </th>
-    <th> 標題 </th>
-    <th> 到期日 </th>
-    <th> 已交人數 </th>
-  </thead>
-  <tbody>
-    <% @homeworks.each do |homework| %>
-      <tr>
-        <td>
-          <% if current_user.is_member_of?(homework) %>
-            <span class="label label-success">已繳交</span>
-          <% else %>
-            <span class="label label-danger">未繳交</span> 
-          <% end %>
-        </td>
-        <td> <%= link_to(homework.title, homework_path(homework)) %>  </td>
-        <td> <%= get_time(homework.deadline, Time.now.to_datetime) %>  </td>
-        <td> <%= homework.answers.count %> / <%= @total_student_counts %> </td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="dist">
+  <h1> CLang Homework </h1>
+  <%= render partial: 'homework_list', locals: {homeworks: @clang_homeworks} %>
+</div>
+
+<div class="dist">
+  <h1> PyLang Homework </h1>
+  <%= render partial: 'homework_list', locals: {homeworks: @pylang_homeworks} %>
+</div>

@@ -10,16 +10,25 @@
   <br>
   
   <h4> Attachment </h4>
-  <% if @homework.attachment.url != nil %>
+  <% if @homework.download_link != nil %>
     已經上傳的檔案：
-    <%= link_to File.basename(@homework.attachment.url), @homework.attachment.url %>
+    <%= link_to File.basename(@homework.attachment.url), @homework.download_link, target: "_blank" %>
+    <br> <br>
   <% end %>
-  <br> <br>
   <font color="red"> 請不要上傳超過50MB的檔案 </font><%= f.input :attachment, label: false %> 
+  
+  <br>
+  
+  <h4> Class </h4>
+  <%= f.input :district, collection: ['CLang', 'PyLang'], label: false %>
   
   <br>
    
   <h4> Deadline </h4>
   <%= f.input :deadline, :class => 'datepicker', label: false %>
+  
+  <br>
+
+  <%= f.submit "Submit", class: "btn btn-primary", data: {disable_with: "Submitting..."} %> 
+  <%= link_to "Back", :back, class: "btn btn-default" %> 
 </div>
-<%= f.submit "Submit", class: "btn btn-primary", data: {disable_with: "Submitting..."} %> 

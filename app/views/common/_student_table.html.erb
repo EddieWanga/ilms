@@ -1,0 +1,18 @@
+<div style="height:300px; overflow:auto;" >
+  <table class="table table-hover">
+    <thead>
+      <th> Class </th>
+      <th> Name </th>
+      <th> Email </th>
+    </thead>
+    <tbody>
+      <% students.each do |student| %>
+        <tr>
+          <td> <%= student.district %> </td>
+          <td> <%= student.name  %> </td>
+          <td> <%= student.email %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

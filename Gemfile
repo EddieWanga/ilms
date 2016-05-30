@@ -38,6 +38,12 @@ gem "devise", "~> 3.4.1"
 gem 'delayed_job_active_record'
 # Active JOB Backend
 
+gem 'google_drive'
+#google drive
+
+gem 'ckeditor_rails'
+
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks

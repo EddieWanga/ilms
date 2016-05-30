@@ -1,0 +1,47 @@
+<div class="dist">
+  <h1> 討論區 </h1>
+  <hr>
+
+  <% if current_user.email == @discussion.email %>  
+    <%= link_to "刪除討論", discussion_path(@discussion), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "你確定要刪除討論嗎？" } %>
+    <%= link_to "修改討論", edit_discussion_path(@discussion), class: "btn btn-success pull-right" %>
+  <% end %>
+  <%= link_to "回覆討論", discussion_path(@discussion, anchor: "reply"), class: "btn btn-warning pull-right" %> 
+  <h3> Title </h3>
+  <%= @discussion.title %>
+
+  <br>
+
+  <h3> Description </h3>
+  <%= @discussion.description.html_safe %>
+</div>
+
+  <div class="dist">
+    <h1> 討論回應區 </h1>
+    <hr>
+    <% @messages.each_with_index do |message, index| %>
+      <% if current_user == message.author %>
+        <%= link_to "刪除回應", discussion_message_path(@discussion, message), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "確定要刪除回應嗎？"} %>
+      <% end %>
+      <h3 id="message_<%= message.id %>"> <%= index %> 樓 </h3>
+      <%= message.description.to_s.html_safe %> 
+      <hr> 
+    <% end %>
+  </div>
+
+<div class="dist" id="reply">
+  <h1> 回覆 </h1>
+  <hr>
+  <%= simple_form_for [@discussion, @message] do |f| %>
+    <%= render partial: 'common/editor', locals: { f: f } %>
+    <%= f.submit "回覆", class: "btn btn-primary", data: { disable_with: "REPLYING..." } %>
+  <% end %>
+</div>
+
+<script>
+  $(document).ready(function(){
+	  $("img").each(function(index) {
+		$(this).removeAttr("style") ;
+	  })
+  });
+</script>

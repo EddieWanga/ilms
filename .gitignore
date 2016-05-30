@@ -18,6 +18,8 @@
 
 *.swp
 *.swo
+*.csv
 email.yml
 /public/uploads
 /public/assets
+config.json

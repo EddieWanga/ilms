@@ -6,16 +6,12 @@ class UserMailer < ApplicationMailer
   #
   #   en.user_mailer.notify_comment.subject
   #
-  def notify_comment
-    @greeting = "Hi"
-    mail(to: "hkhs7821@gmail.com", subject: "Welcome to sprout!")
-  end
 
   def notify_submit(user, answer, home_url)
     @answer = answer
     @user = user
     @homework = answer.homework
-    @url = @answer.attachment.url
+    @url = @answer.download_link
     @root_url = home_url.chomp('/')
     mail(to: user.email, subject: "[資訊之芽作業繳交留存] #{@homework.title} - #{@answer.title}")
   end
@@ -25,7 +21,7 @@ class UserMailer < ApplicationMailer
     @user = user
     @root_url = root_url.chomp('/')
     @homework_url = @root_url + homework_url
-    @attachment_url = homework.attachment.url
+    @attachment_url = homework.download_link
     mail(to: user.email, subject: "[資訊之芽作業通知] #{@homework.title}")
   end
    

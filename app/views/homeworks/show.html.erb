@@ -1,97 +1,74 @@
-<div class="homework">
-  <% if is_admin?(current_user) %>
-    <%= link_to("EDIT", edit_homework_path, class: "btn btn-warning pull-right") %>
-    <%= link_to("DELETE", homework_path(@homework), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "Are you sure ?" }) %>
-  <% elsif current_user.is_member_of?(@homework) %>
-    <%= link_to("刪除作業", homework_answer_path(@homework, @answer), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "確定要把辛辛苦苦寫的作業刪除掉嗎？" }) %>
-    <%= link_to("修改作業", edit_homework_answer_path(@homework, @answer), class: "btn btn-success pull-right") %>
-  <% else %>
-    <%= link_to("交作業", new_homework_answer_path(@homework), class: "btn btn-primary pull-right") %>
+
+<div class="dist">
+  <h1> 作業內容 </h1> 
+  <hr>
+
+  <div class="homework">
+    <% if is_admin?(current_user) %>
+      <%= link_to("EDIT", edit_homework_path, class: "btn btn-warning pull-right") %>
+      <%= link_to("DELETE", homework_path(@homework), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "你確定不是手誤要刪除作業嗎?" }) %>
+      <%= link_to("REMIND", remind_homework_path(@homework), class: "btn btn-success pull-right", data: { confirm: "要給學員們一封提醒信嗎？" }) %>
+    <% elsif can_submit_homework?(current_user, @homework) && !current_user.is_member_of?(@homework) %>
+      <%= link_to("交作業", new_homework_answer_path(@homework), class: "btn btn-primary pull-right") %>
+    <% end %>
+  </div>
+
+  <h4> Title </h4> 
+  <%= @homework.title %> 
+
+  <br> <br>
+
+  <h4> Description </h4>
+  <%= @homework.description.html_safe %>
+
+  <br>
+
+  <% if @homework.download_link != nil %>
+    <h4> Attachment </h4>
+    <%= link_to File.basename(@homework.attachment.path), @homework.download_link, target: "_blank"%>
+    <br><br>
   <% end %>
+
+  <h4> Deadline :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h4> 
 </div>
 
-<h1> Homework </h1> 
-<hr>
-<h4> Title </h4> 
-<%= @homework.title %> 
-
-<br> <br>
-
-<h4> Description </h4>
-<%= @homework.description.html_safe %>
-
-<br>
-
-<% if @homework.attachment.url != nil %>
-  <h4> Attachment </h4>
-  <%= link_to "Download", @homework.attachment.url %>
-<% end %>
-
-<br><br>
-
-<h4> Deadline :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h4> 
-
-<br><br>
-
 <% if is_admin?(current_user) %>
-  <h1> 已交名單 </h1>
-  <hr>
-  <table class="table table-hover">
-    <thead>
-      <th> Name </th>
-      <th> Title </th>
-      <th> File </th>
-      <th> Submission Time </th>
-      <th> Point </th>
-    </thead>
-    <tbody>
-      <% @answers.each do |answer| %>
-        <tr>
-          <td> <%= answer.author.name %> </td>
-          <td> <%= link_to answer.title, homework_answer_path(@homework, answer) %> </td>
-          <td> <%= link_to "Download", answer.attachment.url %> </td>
-          <td> <%= submit_time(@homework.deadline, answer.updated_at) %> </td>
-          <td>
-            <% if is_reviewed?(answer) %>
-              <%= link_to answer.review.point, homework_answer_path(@homework, answer) %>
-            <% else %>
-              <%= link_to "Review", homework_answer_path(@homework, answer), class: "btn btn-primary" %>
-            <% end %>
-          </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-  
-  <br><br>
+  <div class="dist">
+    <h1> 未批改名單</h1>
+    <div style="height:300px; overflow:auto;" >
+      <%= render partial: 'submit_list', locals: {answers: @unreviewed_answers} %>
+    </div>
+  </div>
 
-  <h1> 未交名單 </h1>
-  <hr>
-  <table class="table table-hover">
-    <thead>
-      <th> Name </th>
-      <th> Email </th>
-    </thead>
-    <tbody>
-      <% @non_submitted_students.each do |student| %>
-        <tr>
-          <td> <%= student.name  %> </td>
-          <td> <%= student.email %> </td>
-        </tr>
-      <% end %>
-    </tbody>
-  </table>
-<% elsif @answer != nil %>
+  <div class="dist">
+    <h1> 已批改名單 </h1>
+    <div style="height:300px; overflow:auto;" >
+      <%= render partial: 'submit_list', locals: {answers: @reviewed_answers} %> 
+    </div>
+  </div>
   
-  <%= render 'answers/content' %>
-   
-  <% if @review != nil %>
-    <br><br>
-    <h1> Review </h1>
+  <div class="dist"> 
+    <h1> 未交名單 </h1>
     <hr>
-    <h3> Points : <font color="red"> <%= @review.point %> </font> </h3> 
-    <h3> Comment </h3>
-    <%= @review.comment.html_safe %>
+    <%= render partial: 'common/student_table', locals: { students: @non_submitted_students } %>
+  </div>
+<% elsif @answer != nil %>
+  <div class="dist"> 
+    <% if current_user.is_member_of?(@homework) %>
+      <%= link_to("刪除作業", homework_answer_path(@homework, @answer), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "確定要把辛辛苦苦寫的作業刪除掉嗎？" }) %>
+      <%= link_to("修改作業", edit_homework_answer_path(@homework, @answer), class: "btn btn-success pull-right") %>
+    <% end %>
+    <%= render 'answers/content' %>
+  </div>
+
+  <% if @review != nil %>
+    <div class="dist"> 
+      <h1> Review </h1>
+      <hr>
+      <h3> Points : <font color="red"> <%= @review.point %> </font> </h3> 
+      <h3> Comment </h3>
+      <%= @review.comment.html_safe %>
+    </div>
   <% end %> 
 <% end %>
 

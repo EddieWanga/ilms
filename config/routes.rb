@@ -13,12 +13,22 @@ Rails.application.routes.draw do
   get 'get_account', to: 'topics#get_account'
   post 'send_account', to: 'topics#send_account'
   
+  get 'user_profile', to: 'topics#user_profile'  
+  get 'user_management', to: 'topics#user_management'
+  
+  get 'help', to: 'topics#help'
+   
   root 'homeworks#index'
   
   resources :homeworks do
     resources :answers do
       resources :reviews
     end
+  end
+  get 'homeworks/:id/remind', to: 'homeworks#remind', as: 'remind_homework'
+  
+  resources :discussions do
+    resources :messages
   end
   # get 'download', :to => 'homeworks#download'
 
