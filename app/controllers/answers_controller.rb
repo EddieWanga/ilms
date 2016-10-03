@@ -57,11 +57,9 @@ class AnswersController < ApplicationController
   def update
     if current_user.is_member_of?(@homework)
       @answer = @homework.answers.find(params[:id])
-      old_attachment_path = @answer.attachment.path
       if @answer.update(answer_params)
-        attachment_path = @answer.attachment.current_path
         begin
-          if old_attachment_path != attachment_path
+          if @answer.attachment.file.exists?
             upload_to_google_drive(@answer)
           end
         rescue
