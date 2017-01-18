@@ -5,15 +5,15 @@
 # Before Deployment
 
 1. 先把環境基礎建設處理好
-   
+
    ```bash
    sudo apt-get update
    sudo apt-get upgrade -y
    sudo dpkg-reconfigure tzdata
    ```
-   
+
    之後會要你選時區，選**asia-->Taipei**
-   
+
    ```bash
    sudo apt-get install -y build-essential git-core bison openssl libreadline6-dev curl zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3  autoconf libc6-dev libpcre3-dev curl libcurl4-nss-dev libxml2-dev libxslt-dev imagemagick nodejs libffi-dev
    ```
@@ -72,17 +72,18 @@
 # Deployment
 
 1. Clone **SproutLMS** Project
-   
+
    ```bash
    cd ~
    git clone https://github.com/ChihMin/ilms
    cd ilms
    bundle install
    ```
+
 2. Database setting
-   
+
    編輯 `config/database.yml` ，production那裡設定使用 MySQL:
-   
+
    ```bash
    production:
      adapter: mysql2
@@ -92,8 +93,9 @@
      username: root
      password: "這裡打你剛剛安裝ＭySQL時設定的密碼"
    ```
+
 3. 新增email設定檔，新增 `config/email.yml` 檔案，並加入以下內容：
-   
+
    ```yml
    production:
      address: "這裡放SMTP的Address"
@@ -105,14 +107,14 @@
    ```
 
 4. 編輯 `config/secrets.yml` (在機器上用 `rake secret` 可以隨機產生一個新的 key)：
-   
+
    ```bash
    production:
    		secret_key_base: 放剛剛產生的key
    ```
 
 5. Migrate Datebase schema to mysql2 & precompile assets
-   
+
    ```bash
    RAILS_ENV=production bundle exec rake db:migrate
    RAILS_ENV=production bundle exec rake assets:precompile
@@ -121,18 +123,18 @@
 6. 設定Nginx
 
    編輯 /etc/nginx/nginx.conf，打開以下一行(把這行的註解#拔掉)：
-   
+
    ```
    include /etc/nginx/passenger.conf;
    ```
-   
+
    在 /etc/nginx/nginx.conf最上方新增一行：
    ```
    env PATH;
    ```
-   
+
    新增 `/etc/nginx/sites-enabled/sprout_lms.conf`
-   
+
    ```bash
    server {
      listen 80;
@@ -155,12 +157,28 @@
    - root 那裡擺clone下來的project的絕對路徑下的public資料夾，比方說clone 下來在 `/home/chihmin/ilms`，那麼就把這個絕對路徑指向`/home/chihmin/ilms/public`
    - server_name 如果沒有 domain name，就先打這台電腦的IP
      passenger_min_instances 數量就看電腦有多強，代表可以開的process 個數，設定完重新啟動nginx : `sudo service nginx restart`
+
 7. 開啟email worker thread
    這個是用來處理非同步寄信功能用的機制，以下設定方法，安裝 screen，因為這個需要掛在背景執行，所以用screen把城市掛起來
+   
    ```bash
    sudo apt-get install screen
    screen -S email_worker
    RAILS_ENV=production bundle exec rake jobs:work
    ```
    之後 `ctrl + a + d` 就可以把screen 掛在背景執行了
-8. 開啟瀏覽器，直接輸入server IP 就好了
+
+8. 建立初始 `admin` 帳號：
+
+   ```bash
+   RAILS_ENV=production bundle exec rake db:seed
+   ```
+
+9. 開啟瀏覽器，直接輸入server IP 就好了，最初始預設講師帳號密碼：
+
+   ```bash
+   teacher@gmail.com
+   123456789
+   ```
+
+   登入之後可以點選個人資料更改密碼
