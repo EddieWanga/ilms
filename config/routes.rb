@@ -15,9 +15,12 @@ Rails.application.routes.draw do
   
   get 'user_profile', to: 'topics#user_profile'  
   get 'user_management', to: 'topics#user_management'
-  
+  get 'user_management/new_users', to: 'topics#new_users'
+  post 'user_management/destroy_user', to: 'topics#destroy_user'
+  post 'user_management/create_users', to: 'topics#create_users'
+
   get 'help', to: 'topics#help'
-   
+     
   root 'homeworks#index'
   
   resources :homeworks do
@@ -25,6 +28,7 @@ Rails.application.routes.draw do
       resources :reviews
     end
   end
+  
   get 'homeworks/:id/remind', to: 'homeworks#remind', as: 'remind_homework'
   
   resources :discussions do

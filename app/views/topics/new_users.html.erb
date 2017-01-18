@@ -1,0 +1,17 @@
+<div class="dist">
+  <h1> 新增學員 </h1>
+  <hr> 
+  <h3> 輸入格式: </h3>
+  <p>
+    名字,email,班級
+  </p>
+  <hr>
+  <h3> 輸入範例</h3>
+  <p>大笨蛋,haha@gmail.com,PyLang</p>
+  <p>小笨蛋,gogo@gmail.com,CLang</p>
+  <hr>
+  <%= simple_form_for @topic, :url => user_management_create_users_path, :method => :post do |f| %>
+    <%= f.input :confirm_code, input_html: { class: "form-control", rows: 20 }, label: false, as: :text %>
+    <%= f.submit "Submit", class: "btn btn-primary", data: { disable_with: "Submitting..." } %> 
+  <% end %> 
+</div>

@@ -4,6 +4,7 @@
       <th> Class </th>
       <th> Name </th>
       <th> Email </th>
+      <th> Delete </th>
     </thead>
     <tbody>
       <% students.each do |student| %>
@@ -11,6 +12,7 @@
           <td> <%= student.district %> </td>
           <td> <%= student.name  %> </td>
           <td> <%= student.email %> </td>
+          <td> <%= link_to "Delete Account", user_management_destroy_user_path(student, id: student.id), class: "btn btn-danger", method: :post, data: { confirm: "確定要刪除學員嗎？" } %></td>
         </tr>
       <% end %>
     </tbody>

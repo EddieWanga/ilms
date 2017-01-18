@@ -1,7 +1,7 @@
 class TopicsController < ApplicationController
   before_action :authenticate_user!, except: [:get_account, :send_account, :help]
   before_action :is_confirmed_user?, only: [:welcome, :verify_account]
-  before_action :is_admin?, only: [:user_management]
+  before_action :is_admin?, only: [:user_management, :new_users, :create_users, :destroy_user]
   before_action :is_login?, only: [:get_account, :send_account]
   
   def welcome
@@ -52,6 +52,30 @@ class TopicsController < ApplicationController
     @clang_students = students.where(district: ["CLang", nil])
     @unconfirmed_users = User.where(role: 2)
   end
+  
+  def new_users
+    @topic = Topic.new
+  end 
+   
+  def create_users
+    @topic = Topic.new(topic_params)
+    user_list = @topic.confirm_code.split("\n")
+    
+    success_count = 0
+    user_list.each do |user|
+      if datasheet_parser(user, 2)
+        success_count = success_count + 1
+      end
+    end
+    redirect_to user_management_path, notice: "新增了 #{success_count} 個學員"
+  end
+
+  def destroy_user
+    @user = User.find(params[:id])
+    name = @user.name
+    @user.destroy
+    redirect_to user_management_path, alert: "刪除了 #{name} 學員"
+  end
 
   def help
   end
@@ -77,6 +101,29 @@ private
   def is_admin?
     if current_user.role != 0
       redirect_to root_path
+    end
+  end
+  
+  def datasheet_parser(str, role) 
+    begin
+      profile = str.split(",")
+      name = profile[0]
+      email = profile[1]
+      district = profile[2]
+      password = SecureRandom.base64(60)
+      confirm_code = SecureRandom.base64(60)
+      User.create(
+        email: email, 
+        name: name, 
+        role: role, 
+        password: password, 
+        confirm_code: confirm_code,
+        district: district
+      )
+      Dictionary.create(confirm_code: confirm_code, password: password)
+      return true
+    rescue
+      return false
     end
   end
 end

@@ -1,5 +1,6 @@
 <div class="dist">
   <h1> PyLang </h1>
+  <%= link_to "新增學員", user_management_new_users_path, class: "btn btn-success pull-right"%>
   <hr>
   <%= render partial: 'common/student_table', locals: { students: @pylang_students } %>
 </div>
