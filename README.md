@@ -5,15 +5,19 @@
 # Before Deployment
 
 1. 先把環境基礎建設處理好
+   
    ```bash
    sudo apt-get update
    sudo apt-get upgrade -y
    sudo dpkg-reconfigure tzdata
    ```
+   
    之後會要你選時區，選**asia-->Taipei**
+   
    ```bash
    sudo apt-get install -y build-essential git-core bison openssl libreadline6-dev curl zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3  autoconf libc6-dev libpcre3-dev curl libcurl4-nss-dev libxml2-dev libxslt-dev imagemagick nodejs libffi-dev
    ```
+
 2. 安裝ruby
    ```bash
    sudo apt-get install software-properties-common
