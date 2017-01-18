@@ -11,7 +11,7 @@
    sudo dpkg-reconfigure tzdata
    ```
    之後會要你選時區，選**asia-->Taipei**
-   ```
+   ```bash
    sudo apt-get install -y build-essential git-core bison openssl libreadline6-dev curl zlib1g zlib1g-dev libssl-dev libyaml-dev libsqlite3-0 libsqlite3-dev sqlite3  autoconf libc6-dev libpcre3-dev curl libcurl4-nss-dev libxml2-dev libxslt-dev imagemagick nodejs libffi-dev
    ```
 2. 安裝ruby
@@ -28,7 +28,7 @@
    sudo gem install bundler
    ```
    安裝Rails
-   ```
+   ```bash
    sudo gem install rails --no-ri --no-rdoc
    ```
 
@@ -68,6 +68,7 @@
 # Deployment
 
 1. Clone **SproutLMS** Project
+   
    ```bash
    cd ~
    git clone https://github.com/ChihMin/ilms
@@ -75,7 +76,9 @@
    bundle install
    ```
 2. Database setting
+   
    編輯 `config/database.yml` ，production那裡設定使用 MySQL:
+   
    ```bash
    production:
      adapter: mysql2
@@ -86,6 +89,7 @@
      password: "這裡打你剛剛安裝ＭySQL時設定的密碼"
    ```
 3. 新增email設定檔，新增 `config/email.yml` 檔案，並加入以下內容：
+   
    ```yml
    production:
      address: "這裡放SMTP的Address"
@@ -95,27 +99,36 @@
      password: "這裡放email address的密碼"
      enable_starttls_auto: true
    ```
+
 4. 編輯 `config/secrets.yml` (在機器上用 `rake secret` 可以隨機產生一個新的 key)：
+   
    ```bash
    production:
    		secret_key_base: 放剛剛產生的key
    ```
+
 5. Migrate Datebase schema to mysql2 & precompile assets
+   
    ```bash
    RAILS_ENV=production bundle exec rake db:migrate
    RAILS_ENV=production bundle exec rake assets:precompile
    ```
+
 6. 設定Nginx
 
    編輯 /etc/nginx/nginx.conf，打開以下一行(把這行的註解#拔掉)：
+   
    ```
    include /etc/nginx/passenger.conf;
    ```
+   
    在 /etc/nginx/nginx.conf最上方新增一行：
    ```
    env PATH;
    ```
+   
    新增 `/etc/nginx/sites-enabled/sprout_lms.conf`
+   
    ```bash
    server {
      listen 80;
