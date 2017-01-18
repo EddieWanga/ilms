@@ -9,7 +9,7 @@
 
 <% if @answer.attachment.url != nil %>
   <h3> Attachment </h3>
-  <%= link_to File.basename(@answer.attachment.path), @answer.download_link, target: "_blank" %>
+  <%= link_to File.basename(@answer.attachment.path), @answer.attachment.url, target: "_blank" %>
 <% end %>
 
 <h3> Submission Time :  <%= submit_time(@homework.deadline, @answer.updated_at) %> </h3> 

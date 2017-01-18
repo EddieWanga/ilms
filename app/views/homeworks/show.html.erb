@@ -23,9 +23,9 @@
 
   <br>
 
-  <% if @homework.download_link != nil %>
+  <% if @homework.attachment.url != nil %>
     <h4> Attachment </h4>
-    <%= link_to File.basename(@homework.attachment.path), @homework.download_link, target: "_blank"%>
+    <%= link_to File.basename(@homework.attachment.path), @homework.attachment.url, target: "_blank"%>
     <br><br>
   <% end %>
 

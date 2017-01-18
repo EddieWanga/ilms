@@ -7,12 +7,12 @@
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
 User.create(email: "teacher@gmail.com", name: "Teacher", role: 0, password: "123456789")
-names = ["hkhs7821", "foy2803", "s102062111", "sproutstudent"] 
+names = ["hkhs7821", "foy2803", "s102062111"] 
 current_id = 0
 names.each do |name|
   email = nil
   if name != "s102062111"
-    email = name + "@yahoo.com.tw"
+    email = name + "@gmail.com"
   else
     email = name + "@gapp.nthu.edu.tw"
   end
