@@ -24,7 +24,7 @@ class AnswersController < ApplicationController
       @answer.author = current_user
       if @answer.save
         begin
-          upload_to_google_drive(@answer)
+          # upload_to_google_drive(@answer)
         rescue
           flash[:alert] = "雖然你已經把作業交上去，不過上傳檔案失敗，再試一次好嗎 ~ QAQ"
           render :edit
@@ -57,12 +57,10 @@ class AnswersController < ApplicationController
   def update
     if current_user.is_member_of?(@homework)
       @answer = @homework.answers.find(params[:id])
-      old_attachment_path = @answer.attachment.path
       if @answer.update(answer_params)
-        attachment_path = @answer.attachment.current_path
         begin
-          if old_attachment_path != attachment_path
-            upload_to_google_drive(@answer)
+          if @answer.attachment.file.exists?
+            # upload_to_google_drive(@answer)
           end
         rescue
           flash[:alert] = "上傳到雖然更改檔案成功，但是上傳失敗，可以再試一次嗎？"

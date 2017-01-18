@@ -8,8 +8,8 @@
     <%= render partial: 'common/editor', locals: { f: f, description: :description} %> 
     
     <h3> Attachment </h3>
-    <% if @answer.download_link != nil %>  
-      你當前的檔案：<%= link_to File.basename(@answer.attachment.path), @answer.download_link, target: "_blank" %>
+    <% if @answer.attachment.url != nil %>  
+      你當前的檔案：<%= link_to File.basename(@answer.attachment.path), @answer.attachment.url, target: "_blank" %>
       <br><br>
     <% end %>
     <%= f.input :attachment, label: "重新上傳檔案，檔案請不要超過50MB" %>
