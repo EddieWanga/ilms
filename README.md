@@ -143,20 +143,21 @@
      root /home/deploy/your_project_name/public;
 
      passenger_enabled on;
-
+     client_max_body_size 60m;
      passenger_min_instances 5;
 
      location ~ ^/assets/ {
-   	expires 1y;
-   	add_header Cache-Control public;
-   	add_header ETag "";
-   	break;
+   	    expires 1y;
+   	    add_header Cache-Control public;
+   	    add_header ETag "";
+    	break;
       }
    }
    ```
    - root 那裡擺clone下來的project的絕對路徑下的public資料夾，比方說clone 下來在 `/home/chihmin/ilms`，那麼就把這個絕對路徑指向`/home/chihmin/ilms/public`
    - server_name 如果沒有 domain name，就先打這台電腦的IP
      passenger_min_instances 數量就看電腦有多強，代表可以開的process 個數，設定完重新啟動nginx : `sudo service nginx restart`
+   - client_max_body_size 這個是用來設定，檔案上傳時的最大大小
 
 7. 開啟email worker thread
    這個是用來處理非同步寄信功能用的機制，以下設定方法，安裝 screen，因為這個需要掛在背景執行，所以用screen把城市掛起來
