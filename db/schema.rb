@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160320181401) do
+ActiveRecord::Schema.define(version: 20170408101716) do
 
   create_table "answers", force: :cascade do |t|
     t.string   "title"
@@ -24,6 +24,13 @@ ActiveRecord::Schema.define(version: 20160320181401) do
     t.text     "homework_id"
     t.integer  "user_id"
     t.string   "download_link"
+  end
+
+  create_table "attendances", force: :cascade do |t|
+    t.string   "district"
+    t.string   "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "delayed_jobs", force: :cascade do |t|
@@ -84,6 +91,15 @@ ActiveRecord::Schema.define(version: 20160320181401) do
     t.integer  "user_id"
   end
 
+  create_table "requests", force: :cascade do |t|
+    t.string   "date"
+    t.string   "reason"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "user_id"
+    t.integer  "read"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.integer  "answer_id"
     t.integer  "point"
@@ -98,8 +114,24 @@ ActiveRecord::Schema.define(version: 20160320181401) do
     t.datetime "updated_at",   null: false
   end
 
+  create_table "user_attendances", force: :cascade do |t|
+    t.integer  "user_id"
+    t.string   "attendance_date"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.integer  "attendance_id"
+    t.string   "note"
+    t.integer  "description"
+    t.datetime "arrive_at"
+  end
+
+  create_table "user_requests", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  default: "", null: false
+    t.string   "email",                               null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -115,6 +147,7 @@ ActiveRecord::Schema.define(version: 20160320181401) do
     t.string   "district"
     t.integer  "role"
     t.string   "confirm_code"
+    t.integer  "area"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true

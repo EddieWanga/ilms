@@ -1,19 +1,31 @@
-<div style="height:300px; overflow:auto;" >
-  <table class="table table-hover">
+<div style="height:350px; overflow:auto;" >
+  <table class="table table-hover" style="text-align:center;">
     <thead>
-      <th> Class </th>
-      <th> Name </th>
-      <th> Email </th>
-      <th> Delete </th>
+      <th style="text-align:center;"> 班級 </th>
+      <% if students.first != nil%>
+	 <% if students.first.role == 0 %>
+	  <th style="text-align:center;">編號</th>
+        <% else %>
+          <th style="text-align:center;">學員編號</th>
+	<% end %>
+      <% else %>
+	<th style="text-align:center;">學員編號</th>
+      <% end %>
+      <th style="text-align:center;"> 姓名 </th>
+      <th style="text-align:center;"> 信箱 </th>
+      <th style="text-align:center;"> 編輯 </th>
+      <th style="text-align:center;"> 刪除 </th>
     </thead>
     <tbody>
       <% students.each do |student| %>
         <tr>
           <td> <%= student.district %> </td>
+	  <td> <%= student.id %> </td>
           <td> <%= student.name  %> </td>
           <td> <%= student.email %> </td>
-          <td> <%= link_to "Delete Account", user_management_destroy_user_path(student, id: student.id), class: "btn btn-danger", method: :post, data: { confirm: "確定要刪除學員嗎？" } %></td>
-        </tr>
+	  <td> <%= link_to "編輯帳號", edit_user_path(area: params[:area], id: student.id), class: "btn btn-warning", method: :get%>
+          <td> <%= link_to "刪除帳號", destroy_user_path(student, area: params[:area], id: student.id), class: "btn btn-danger", method: :post, data: { confirm: "確定要刪除學員嗎？" } %></td>
+	</tr>
       <% end %>
     </tbody>
   </table>

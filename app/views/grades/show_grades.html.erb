@@ -1,0 +1,45 @@
+<div class="dist">
+  <h1><%=@district%> 成績列表 </h1>
+  <h2> <%=link_to "成績上傳",  upload_grades_path(@district), class: "btn btn-primary", method: :get, data: { disable_with: "上傳中..."} %> </h2>
+  <hr>
+  <div style="width:900px; min-height:300px; overflow:auto;">
+    <table class="table table-hover">
+      <thead>
+	<th style="min-width:70px; text-align:center;">學員編號</th>
+	<th style="min-width:100px; text-align:center;">姓名</th>
+	<% hw_cnt = 1%>
+	<% @homework_list.each do |hw| %>
+	  <th style="min-width:100px; text-align:center;"><%=hw.title%></th>
+	  <%hw_cnt = hw_cnt+1%>
+	<% end %>
+      </thead>
+      <tbody>
+      <% @students.each do |student| %>
+	<tr>
+	<td style="min-width:70px; text-align:center;"><%=student.id%></td>
+	<td style="min-width:100px; text-align:center;"><%=student.name%></td>
+	<% @homework_list.each do |hw| %>
+  	  <% @answer = hw.answers.where(:user_id => student.id).take %>
+	  <% if @answer != nil %>
+	    <% p @answer %>
+  	    <% if Review.where(:answer_id => @answer.id).exists? %>
+	      <% review = Review.where(:answer_id => @answer.id).take %>
+	 	<% p review %>
+	      <% if review.point != nil %>
+  	        <td style="min-width:100px; text-align:center;"><%=review.point%></td>
+ 	      <% else %>
+  	        <td style="min-width:100px; text-align:center;">未批改</td>
+	      <% end %>
+	    <% else %>
+	        <td style="min-width:100px; text-align:center;" >未批改</td>
+	    <% end %>
+	  <% else %>
+	      <td style="min-width:100px; text-align:center;">未繳交</td>
+	  <% end %>
+  	<% end %>
+      <% end %>
+      </tr>
+      </tbody>
+   </table>
+ </div>
+</div>

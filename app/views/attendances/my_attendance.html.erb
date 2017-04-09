@@ -1,0 +1,47 @@
+<div class="dist">
+  <h1><%=@student.name%>的出席紀錄</h1>
+  <br>
+  <h3>班級：<%=@student.district%></h3>
+  <hr>
+  <div>
+    <table class="table table-hover">
+      <thead>
+	<th>日期</th>
+	<th>出席狀況</th>
+	<th>報到時間</th>
+	<th>備註</th>
+      </thead>
+      <tbody>
+      <% @attendance_list.each do |attendance| %>
+	<tr>
+	<td><%=attendance.date%></td>
+	<% user_attendance = UserAttendance.where(:user => @student, :attendance => attendance).take %>
+	<% description = user_attendance.description %>
+	<% note = user_attendance.note %>
+	<% if description == 0 %>
+	  <td><font color=#000000>未到</td>
+	  <td></td>
+	  <td><%=note%></td>
+	<% elsif description == 1 %>
+	  <td><font color=#00A600>準時</td>
+  	  <td><%=user_attendance.arrive_at.strftime("%Y-%m-%d %H:%M:%S")%></td>
+	  <td><%=note%></td>
+	<% elsif description == 2 %>
+	  <td><font color=#FF8F59>遲到</td>
+  	  <td><%=user_attendance.arrive_at.strftime("%Y-%m-%d %H:%M:%S")%></td>
+	  <td><%=note%></td>
+	<% elsif description == 3 %>
+	  <td><font color=#46A3FF>請假<td>
+	  <td></td>
+	  <td><%=note%></td>
+	<% elsif description == 4 %>
+	  <td><font color=#FF5151>缺席</td>
+	  <td></td>
+	  <td><%=note%></td>
+	<% end %>
+      <% end %>
+      </tr>
+      </tbody>
+   </table>
+ </div>
+</div>

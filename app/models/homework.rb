@@ -8,7 +8,9 @@ class Homework < ActiveRecord::Base
   belongs_to :owner, class_name: "User", foreign_key: :user_id
   has_many :homework_users
   has_many :members, through: :homework_users, source: :user
-  
+
+  has_many :score_homeworks
+  has_many :scores, through: :score_homeworks  
   def attachment_size_validation
     if attachment.size > 50.megabytes
 	  errors.add(:base, "Attachment should be less than 50MB")

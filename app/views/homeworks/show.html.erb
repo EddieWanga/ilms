@@ -5,37 +5,37 @@
 
   <div class="homework">
     <% if is_admin?(current_user) %>
-      <%= link_to("EDIT", edit_homework_path, class: "btn btn-warning pull-right") %>
-      <%= link_to("DELETE", homework_path(@homework), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "你確定不是手誤要刪除作業嗎?" }) %>
-      <%= link_to("REMIND", remind_homework_path(@homework), class: "btn btn-success pull-right", data: { confirm: "要給學員們一封提醒信嗎？" }) %>
+      <%= link_to("編輯", edit_homework_path, class: "btn btn-warning pull-right") %>
+      <%= link_to("刪除", homework_path(@homework), method: :delete, class: "btn btn-danger pull-right", data: { confirm: "你確定不是手誤要刪除作業嗎?" }) %>
+      <%= link_to("提醒", remind_homework_path(@homework), class: "btn btn-success pull-right", data: { confirm: "要給學員們一封提醒信嗎？" }) %>
     <% elsif can_submit_homework?(current_user, @homework) && !current_user.is_member_of?(@homework) %>
       <%= link_to("交作業", new_homework_answer_path(@homework), class: "btn btn-primary pull-right") %>
     <% end %>
   </div>
 
-  <h4> Title </h4> 
+  <h4> 標題 </h4> 
   <%= @homework.title %> 
 
   <br> <br>
 
-  <h4> Description </h4>
+  <h4> 敘述 </h4>
   <%= @homework.description.html_safe %>
 
   <br>
 
   <% if @homework.attachment.url != nil %>
-    <h4> Attachment </h4>
+    <h4> 附加檔案 </h4>
     <%= link_to File.basename(@homework.attachment.path), @homework.attachment.url, target: "_blank"%>
     <br><br>
   <% end %>
 
-  <h4> Deadline :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h4> 
+  <h4> 繳交期限 :  <%= get_time(@homework.deadline, Time.now.to_datetime) %> </h4> 
 </div>
 
 <% if is_admin?(current_user) %>
   <div class="dist">
     <h1> 未批改名單</h1>
-    <div style="height:300px; overflow:auto;" >
+    <div style="height:400px; overflow:auto;" >
       <%= render partial: 'submit_list', locals: {answers: @unreviewed_answers} %>
     </div>
   </div>
@@ -50,7 +50,7 @@
   <div class="dist"> 
     <h1> 未交名單 </h1>
     <hr>
-    <%= render partial: 'common/student_table', locals: { students: @non_submitted_students } %>
+    <%= render partial: 'common/plain_student_table', locals: { students: @non_submitted_students } %>
   </div>
 <% elsif @answer != nil %>
   <div class="dist"> 
@@ -63,10 +63,10 @@
 
   <% if @review != nil %>
     <div class="dist"> 
-      <h1> Review </h1>
+      <h1> 評分 </h1>
       <hr>
-      <h3> Points : <font color="red"> <%= @review.point %> </font> </h3> 
-      <h3> Comment </h3>
+      <h3> 分數 : <font color="red"> <%= @review.point %> </font> </h3> 
+      <h3> 評語： </h3>
       <%= @review.comment.html_safe %>
     </div>
   <% end %> 

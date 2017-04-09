@@ -3,13 +3,13 @@
 <br>
 
 <% if is_admin?(current_user) %>
-  <h1> Review </h1>
+  <h1>作業批改</h1>
   <hr>
   <%= simple_form_for [@homework, @answer, @review] do |f| %>
-    <h3> Points </h3>
+    <h3> 分數 </h3>
     <%= f.input :point, input_html: { class: "form-control" }, label: false %>
     
-    <h3> Comment </h3> 
+    <h3>評語</h3> 
     <%= f.input :comment, input_html: { class: "ckeditor" }, label: false %>
     <%= render partial: 'common/editor_script' %>
 

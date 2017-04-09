@@ -1,0 +1,59 @@
+<div class="dist"> 
+  <h1><%=@district%> 簽到表</h1>
+  <h3><%=@date%></h3>
+  <%= simple_form_for @scan, :url => scan_id_path(@district, @attendance_id), :method => :get do |f| %>
+    <%= f.input :id, placeholder:"請輸入學員編號", label: false, autofocus: true%>
+    <%= f.submit "報到", class: "btn btn-primary", data: {disable_with: "處理中..."} %>
+  <% end %>
+  <hr>
+  <div> 
+    <table class="table table-hover">
+      <thead>
+	<th>學員編號</th>
+	<th> 姓名</th>
+	<th> 出席狀況 </th>
+    	<th>報到時間</th>  
+	<th>備註</th>
+    </thead>
+      <tbody>
+      <% @students.each do |student| %>
+	<tr>
+	<td><%= student.id %></td>
+	<td><%= student.name %></td>
+	<% if not UserAttendance.where(:user => student, :attendance => @attendance).exists? %>
+	  <% UserAttendance.create(:user =>student, :attendance => @attendance, :attendance_date => @date, :description => 0, :arrive_at => TIme.new) %>
+	<% else %>
+	  <% detail = UserAttendance.where(:user => student, :attendance => @attendance).take%>
+	  <% description = detail.description %>
+	  <% if description == 1%>
+            <td><%=link_to"準時", edit_description_path(@district, @attendance_id, student.id),{:style=>'color:#00A600;', :class => "css_class"}%></td>
+	  <% elsif description == 2%>
+	    <td><%=link_to"遲到", edit_description_path(@district, @attendance_id, student.id),{:style=>'color:#FF8F59;', :class => "css_class"}%></td>
+	  <% elsif description == 3%>
+	    <td><%=link_to"請假", edit_description_path(@district, @attendance_id, student.id),{:style=>'color:#46A3FF;', :class => "css_class"}%></td>
+	  <% elsif description == 4%>
+	    <td><%=link_to"缺席", edit_description_path(@district, @attendance_id, student.id),{:style=>'color:#FF5151;', :class => "css_class"}%></td>
+	  <% elsif description == 0%>
+	    <td><%=link_to"未到", edit_description_path(@district, @attendance_id, student.id),{:style=>'color:#000000;', :class => "css_class"}%></td>
+	  <% end %>
+  	<% end %>
+	<% detail = UserAttendance.where(:user => student, :attendance => @attendance).take %>
+        <% if detail.description == 1 || detail.description == 2 %>
+  	  <td><%= detail.arrive_at.strftime("%Y-%m-%d %H:%M:%S") %></td>
+        <% else %>
+      	  <td></td>
+	<% end %>
+	<% if detail.note != nil && detail.note != ""%>
+ 	  <td><%= detail.note %></td>
+	  <td><%= link_to "編輯備註", edit_note_path(:student_id => student.id), class: "btn btn-warning pull-right"%>
+	<% else %>
+	  <td></td>
+	  <td><%= link_to "新增備註", edit_note_path(:student_id => student.id), class: "btn btn-success pull-right"%></td>
+	<% end %>
+	
+	</tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>

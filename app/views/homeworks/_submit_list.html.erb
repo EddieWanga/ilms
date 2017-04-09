@@ -1,28 +1,111 @@
-<table class="table table-hover">
+<hr>
+<div class="tab">
+  <button class="tablinks" onclick="areaTab(event, '北區')">北區</button>
+  <button class="tablinks" onclick="areaTab(event, '竹區')">竹區</button>
+  <button class="tablinks" onclick="areaTab(event, '不分區')">不分區</button>
+</div>
+
+<div id='北區' class="tabcontent">
+<table class="table table-hover" style="text-align:center;">
   <thead>
-    <th> Class </th>
-    <th> Name </th>
-    <th> Email </th>
-    <th> Title </th>
-    <th> Submission Time </th>
-    <th>  Review </th>
+    <th style="text-align:center;"> 學員編號 </th>
+    <th style="text-align:center;"> 姓名 </th>
+    <th style="text-align:center;"> 作業標題 </th>
+    <th style="text-align:center;"> 繳交時間 </th>
+    <th style="text-align:center;"> 講師批改  </th>
   </thead>
+
+  <% area_answers = Array.new %>
+  <% answers.each do |answer| %>
+    <% if answer.author.id >= 1000 && answer.author.id < 2000 %>
+      <% area_answers << answer %>
+    <% end %>
+  <% end %>
+
   <tbody>
-    <% answers.each do |answer| %>
+    <% area_answers.each do |answer| %>
       <tr>
-        <td> <%= answer.author.district %> </td>
+        <td> <%= answer.author.id %> </td>
         <td> <%= answer.author.name %> </td>
-        <td> <%= answer.author.email %> </td>
         <td> <%= link_to answer.title, homework_answer_path(@homework, answer) %> </td>
         <td> <%= submit_time(@homework.deadline, answer.updated_at) %> </td>
         <td>
           <% if is_reviewed?(answer) %>
             <%= link_to answer.review.point, homework_answer_path(@homework, answer), style: "color: red;" %>
           <% else %>
-            <%= link_to "Review", homework_answer_path(@homework, answer), class: "btn btn-warning" %>
+            <%= link_to "批改", homework_answer_path(@homework, answer), class: "btn btn-warning" %>
           <% end %>
         </td>
       </tr>
     <% end %>
   </tbody>
 </table>
+</div>
+
+
+<div id='竹區' class="tabcontent">
+<table class="table table-hover" style="text-align:center;">
+  <thead>
+    <th style="text-align:center;"> 學員編號 </th>
+    <th style="text-align:center;"> 姓名 </th>
+    <th style="text-align:center;"> 作業標題 </th>
+    <th style="text-align:center;"> 繳交時間 </th>
+    <th style="text-align:center;"> 講師批改  </th>
+  </thead>
+
+  <% area_answers = Array.new %>
+  <% answers.each do |answer| %>
+    <% if answer.author.id >= 2000 && answer.author.id < 3000 %>
+      <% area_answers << answer %>
+    <% end %>
+  <% end %>
+
+  <tbody>
+    <% area_answers.each do |answer| %>
+      <tr>
+        <td> <%= answer.author.id %> </td>
+        <td> <%= answer.author.name %> </td>
+        <td> <%= link_to answer.title, homework_answer_path(@homework, answer) %> </td>
+        <td> <%= submit_time(@homework.deadline, answer.updated_at) %> </td>
+        <td>
+          <% if is_reviewed?(answer) %>
+            <%= link_to answer.review.point, homework_answer_path(@homework, answer), style: "color: red;" %>
+          <% else %>
+            <%= link_to "批改", homework_answer_path(@homework, answer), class: "btn btn-warning" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>
+
+
+<div id='不分區' class="tabcontent">
+<table class="table table-hover" style="text-align:center;">
+  <thead>
+    <th style="text-align:center;"> 學員編號 </th>
+    <th style="text-align:center;"> 姓名 </th>
+    <th style="text-align:center;"> 作業標題 </th>
+    <th style="text-align:center;"> 繳交時間 </th>
+    <th style="text-align:center;"> 講師批改  </th>
+  </thead>
+  <tbody>
+    <% answers.each do |answer| %>
+      <tr>
+        <td> <%= answer.author.id %> </td>
+        <td> <%= answer.author.name %> </td>
+        <td> <%= link_to answer.title, homework_answer_path(@homework, answer) %> </td>
+        <td> <%= submit_time(@homework.deadline, answer.updated_at) %> </td>
+        <td>
+          <% if is_reviewed?(answer) %>
+            <%= link_to answer.review.point, homework_answer_path(@homework, answer), style: "color: red;" %>
+          <% else %>
+            <%= link_to "批改", homework_answer_path(@homework, answer), class: "btn btn-warning" %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+</div>

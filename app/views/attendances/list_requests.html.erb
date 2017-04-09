@@ -1,0 +1,36 @@
+<div class="dist">
+<h1>學員請假申請</h1>
+<hr>
+<div>
+  <table class="table table-hover">
+    <thead>
+      <th> 班級 </th>
+      <th>學員編號</th>
+      <th>姓名</th>
+      <th>請假日期</th>
+      <th>原因與備註</th>
+      <th>申請時間</th>
+      <th>標記</th>
+    </thead>
+    <tbody>
+      <% @request_list.each do |request| %>
+	<% student = User.where(:id => request.user_id).take %>
+        <tr>
+          <td> <%= student.district %> </td>
+	  <td> <%= student.id %> </td>
+          <td> <%= student.name  %> </td>
+	  <td> <%= request.date %> </td>
+  	  <td> <%= request.reason %> </td>
+	  <td> <%= request.created_at.strftime("%Y-%m-%d %H:%M:%S")%></td>
+   	  <% if request.read == 0 || request.read == nil %>
+       	    <td> <%= link_to "未讀", read_request_path(request.id), {:style => 'color:#FF5151;', :class => "css_class"} %></td>
+	  <% else %>
+ 	    <td> <%= link_to "已讀", read_request_path(request.id), {:style => 'color: #00A600;', :class => "css_class"} %></td>
+	  <% end %>
+	  <td> <%= link_to "刪除", delete_request_path(request.id), class: "btn btn-danger pull-right", method: :delete, data:{confirm: "確定刪除嗎？", disable_with: "刪除中..."} %></td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+</div>

@@ -1,5 +1,5 @@
 <% if is_admin?(current_user) %>
-  <%= link_to("New Homework", new_homework_path, class: "btn btn-primary pull-right") %>
+  <%= link_to("新增作業", new_homework_path, class: "btn btn-primary pull-right") %>
 <% end %>
 <table class="table table-hover">
   <thead>
@@ -7,6 +7,9 @@
     <th> 標題 </th>
     <th> 到期日 </th>
     <th> 已交人數 </th>
+    <% if homeworks.any? and can_submit_homework?(current_user, homeworks.first) %>
+      <th> 我的成績 </th>
+    <% end %>
   </thead>
   <tbody>
     <% homeworks.each do |homework| %>
@@ -25,6 +28,23 @@
         <td> <%= link_to(homework.title, homework_path(homework)) %>  </td>
         <td> <%= get_time(homework.deadline, Time.now.to_datetime) %>  </td>
         <td> <%= homework.answers.count %> </td>
+        <% if can_submit_homework?(current_user, homework) %>
+          <% if current_user.is_member_of?(homework) %>
+ 	    <% answer = homework.answers.where(:user_id => current_user.id).take%>
+	    <% if Review.where(:answer_id => answer.id).exists? %>
+	      <% review = Review.where(:answer_id => answer.id).take %>
+	      <% if review.point != nil %>
+                <td> <%= review.point%> </td>
+	      <% else%>
+	  	<td>未批改</td>
+	      <% end %>
+	    <% else %>
+	      <td>未批改</td>
+  	    <% end %>
+          <% else %>
+	    <td> 未繳交 </td>
+  	  <% end %>
+        <% end %>
       </tr>
     <% end %>
   </tbody>

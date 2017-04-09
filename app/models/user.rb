@@ -9,7 +9,10 @@ class User < ActiveRecord::Base
   has_many :homeworks
   has_many :homework_users
   has_many :participated_homeworks, through: :homework_users, source: :homework
-
+  has_many :user_attendances
+  has_many :attendances, through: :user_attendances
+  
+  has_many :requests
 
   def join!(homework)
     participated_homeworks << homework

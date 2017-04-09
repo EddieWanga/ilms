@@ -1,0 +1,19 @@
+<div class="dist">
+
+  <h2>學員請假</h2>
+  <hr>
+  <h4> 學員編號： <%= @student.id %></h4>
+  <br>
+  <h4> 姓名： <%= @student.name %></h4>
+  <br>
+  <h4> 班級： <%= @student.district %></h4>
+  <br>
+  <%= simple_form_for @request, :url => send_leave_request_path, :method => :get do |f| %>
+    <h4>請假日期</h4>
+    <%= f.input :date, label: false, input_html: {value: Date.today} %></td>
+    <br>
+    <h4>原因與備註</h4>
+    <%= f.input :reason, label: false %>
+    <%= f.submit "送出", class: "btn btn-primary", data: { disable_with: "處理中..." } %>
+  <% end %> 
+</div>

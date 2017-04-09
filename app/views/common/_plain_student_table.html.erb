@@ -1,0 +1,18 @@
+<div style="height:300px; overflow:auto;" >
+  <table class="table table-hover" style="text-align:center;">
+    <thead>
+      <th style="text-align:center;">學員編號</th>
+      <th style="text-align:center;"> 姓名 </th>
+      <th style="text-align:center;"> 信箱 </th>
+    </thead>
+    <tbody>
+      <% students.each do |student| %>
+        <tr>
+	  <td> <%= student.id %> </td>
+          <td> <%= student.name  %> </td>
+          <td> <%= student.email %> </td>
+	</tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

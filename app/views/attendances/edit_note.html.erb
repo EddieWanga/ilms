@@ -1,0 +1,24 @@
+<div class="dist">
+
+  <% if @detail.note == nil || @detail.note == ""%>
+    <h2>新增備註</h2>
+  <% else %>
+    <h2>編輯備註</h2>
+  <% end %>
+  <br>
+  <h4>*學員看得見備註喔</h4>
+  <hr>
+  <h4> 學員編號： <%= @student.id %></h4>
+  <br>
+  <h4> 姓名： <%= @student.name %></h4>
+  <br>
+  <h4> 班級： <%= @student.district %></h4>
+  <br>
+  <h4> 日期： <%= @attendance.date %></h4>
+  <br>
+  <h4> 備註： </h4>
+  <%= simple_form_for @new_detail, :url => update_note_path, :method => :get do |f| %>
+    <%= f.input :note, input_html: {value: @detail.note}, label: false %>
+    <%= f.submit "確認", class: "btn btn-primary", data: { disable_with: "處理中..." } %>
+  <% end %> 
+</div>

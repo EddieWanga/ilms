@@ -1,0 +1,53 @@
+<div class="dist">
+<h1>編輯帳號</h1>
+<hr>
+<br><br>
+<div style="width:900px;">
+  <table class="table">
+    <thead>
+      <th> </th>
+      <th> 　學員編號 </th>
+      <th> 　姓名 </th>
+      <th> 　信箱 </th>
+      <th> 　身份 </th>
+      <th> 　班級 </th>
+      <th> 　地區 </th>
+    </thead>
+    <tbody>
+      <tr>
+	  <td style="width:100px;"><span class="label label-success"> 舊有資料 </span></td>
+      <td style="width:100px;"> 　<%= @user.id %> </td>
+  	  <td style="width:100px;"> 　<%= @user.name %> </td>
+      <td style="width:200px;"> 　<%= @user.email %> </td>
+  	  <td style="width:100px;"> 　<%= @role %> </td>
+ 	  <td style="width:150px;"> 　<%= @user.district %> </td>
+      <td style="width:100px;"> 　<%= @area %> </td>
+      </tr>
+      <tr>
+	<%= simple_form_for @user_new, :url => update_user_path(original_id: @user.id), :method => :get do |f| %>
+	  <td><span class="label label-info"> 更新資料 </span></td>
+	  <td> <%=f.input :id, label: false, input_html: {value: @user.id} %> </td>
+	  <td> <%=f.input :name, label: false, input_html: {value: @user.name} %> </td> 
+	  <td> <%=f.input :email, label: false, input_html: {value: @user.email} %> </td>
+	  <% if @user.role != 2 %>
+	  <td> <%=f.input :role, label: false, collection: ['講師', '學員'], selected: [@role] %> </td>
+	  <% else %>
+	  <td> <%= f.input :role, label: false, collection: ['要先成功認證才能更改身份喔...']%> </td>
+	  <% end %>
+	  <td> <%=f.input :district, label:false, collection: ['PyLang', 'CLang'] , selected: @user.district%> </td>
+      <td> <%=f.input :area, label:false, collection: ['北區', '竹區'], selected: [@area] %> </td>
+ 	  </tr>
+      <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td> <%=f.submit "完成", class: "btn btn-primary pull-right", data: { diable_with: "處理中..."} %> </td>
+      </tr>
+    </tbody>
+  </table>
+  <% end %>	
+</div>
+</div>

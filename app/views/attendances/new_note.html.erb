@@ -1,0 +1,13 @@
+<div class="dist">
+  <h2> new note </h2>
+  <hr>
+  <h3> id: <%= @student.id %></h3>
+  <h3> name: <%= @student.name %></h3>
+  <h3> district: <%= @student.district %></h3>
+  <h3> date: <%= @attendance.date %></h3>
+  <h3> note: </h3>
+  <%= simple_form_for @detail, :url => create_note_path, :method => :get do |f| %>
+    <%= f.input :note, label: false %>
+    <%= f.submit "Submit", class: "btn btn-primary", data: { disable_with: "Submitting..." } %>
+  <% end %> 
+</div>

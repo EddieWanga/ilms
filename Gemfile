@@ -39,6 +39,7 @@ gem 'delayed_job_active_record'
 # Active JOB Backend
 
 gem 'google_drive'
+gem 'google-api-client'
 #google drive
 
 gem 'ckeditor_rails'

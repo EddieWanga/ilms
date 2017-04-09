@@ -1,0 +1,24 @@
+<div class="dist">
+  <h1>課程日期</h1>
+  <br> 
+  <%= simple_form_for @attendance_today, :url => new_date_path(@district), :method => :post do |f|%>
+  <h2 align="right"><%= f.input :date, label:false, input_html: {value: Date.today}%>
+      <%= f.submit "新增日期", class: "btn btn-success", data: {disable_with: "處理中..."}%></h2>
+  <% end %>
+  <hr>
+  <div>
+    <table class="table table-hover">
+      <thead>
+      </thead>
+      <tbody>
+	<% @attendance_record.each do |record|%>
+          <tr>
+	    <td align="left"><%=link_to"上傳紀錄", upload_list_path(@district, record), class: "btn btn-primary", method: :get, data:{disable: "uploading..."}%></td>
+	    <td align="middle" style="font-size: 30px"><%= link_to record.date, attendance_list_path(@district, record), {:style => 'color:#5B5B5B', :class => "css_class"}%></td>
+	    <td align="right"><%=link_to"刪除紀錄", delete_date_path(@district, record), class: "btn btn-danger", method: :delete, data:{confirm: "確定刪除?", disable_with: "刪除中..."}%></td>
+          </tr>
+	<%end%>
+      </tbody>
+    </table>
+  </div>
+</div>
