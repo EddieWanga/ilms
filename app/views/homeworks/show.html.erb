@@ -36,14 +36,14 @@
   <div class="dist">
     <h1> 未批改名單</h1>
     <div style="height:400px; overflow:auto;" >
-      <%= render partial: 'submit_list', locals: {answers: @unreviewed_answers} %>
+      <%= render partial: 'submit_list', locals: {answers: @unreviewed_answers, review_stat: "unreviewed"} %>
     </div>
   </div>
 
   <div class="dist">
     <h1> 已批改名單 </h1>
     <div style="height:300px; overflow:auto;" >
-      <%= render partial: 'submit_list', locals: {answers: @reviewed_answers} %> 
+      <%= render partial: 'submit_list', locals: {answers: @reviewed_answers, review_stat: "reviewed"} %> 
     </div>
   </div>
   

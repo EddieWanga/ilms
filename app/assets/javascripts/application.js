@@ -43,12 +43,12 @@
 //= require ckeditor-jquery
 //= require_tree .
 
-function areaTab(evt, cityName) {
+function areaTab(evt, cityName, reviewStat) {
     // Declare all variables
     var i, tabcontent, tablinks;
 
     // Get all elements with class="tabcontent" and hide them
-    tabcontent = document.getElementsByClassName("tabcontent");
+    tabcontent = document.getElementsByClassName(reviewStat);
     for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
     }
@@ -60,6 +60,9 @@ function areaTab(evt, cityName) {
     }
 
     // Show the current tab, and add an "active" class to the button that opened the tab
-    document.getElementById(cityName).style.display = "block";
+    document.getElementById(reviewStat+cityName).style.display = "block";
     evt.currentTarget.className += " active";
+    console.log(reviewStat+cityName);
+    tmp = document.getElementById(reviewStat+cityName)
+    console.log(tmp);
 }

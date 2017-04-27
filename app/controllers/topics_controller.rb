@@ -53,17 +53,6 @@ class TopicsController < ApplicationController
       @unconfirmed_users = User.where(role: 2)
    
    
-      #幫大量帳號分地區
-      #students.each do |s|
-      #  if s.area == nil
-      #    if s.id >= 1000 && s.id < 2000
-      #      s.update(:area => 0)
-      #    elsif s.id >= 2000 && s.id < 3000
-      #      s.update(:area => 1)
-      #    end 
-      #  end
-      #end
-
     else
       students = User.where(role: 1, area: params[:area])
       @unconfirmed_users = User.where(role: 2, area: params[:area])
@@ -72,6 +61,19 @@ class TopicsController < ApplicationController
     @teachers = User.where(role: 0)
     @pylang_students = students.where(district: ["PyLang", nil, ""])
     @clang_students = students.where(district: ["CLang", nil, ""])
+    
+    
+    #幫沒有地區的帳號分地區
+    no_area_students = User.where(area:nil)
+    no_area_students.each do |s|
+      if s.id >= 1000 && s.id < 2000
+        s.update(:area => 0)
+      elsif s.id >= 2000 && s.id < 3000
+        s.update(:area => 1)
+      end 
+    end
+  
+
   end
   
   def new_users
@@ -167,9 +169,17 @@ class TopicsController < ApplicationController
     
       #update UserAttendance relationship if id altered
       if @user.id != old_id
-        update_user_attendance = UserAttendance.where(:user => @user)
-        update_user_attendance.each do |user_attendance|
-          user_attendance.update(:id => user_params[:id])
+        if UserAttendance.where(:user_id => old_id).exists?
+          update_user_attendance = UserAttendance.where(:user_id => old_id)
+          update_user_attendance.each do |user_attendance|
+            user_attendance.update(:user_id => user_params[:id])
+          end
+        end
+        if Answer.where(:author => old_id).exists?
+          update_user_answer = Answer.where(:user_id => old_id)
+          update_user_answer.each do |user_answer|
+            user_answer.update(:user_id => user_params[:id])
+          end
         end
       end
   

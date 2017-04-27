@@ -31,16 +31,12 @@
 
 @import "bootstrap"; 
 
-@import url(http://fonts.googleapis.com/earlyaccess/cwtexhei.css);
-
 body, html {
     height: 100%;
     background-image: url("/background.jpg");
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: cover;
-    font-family: 'cwTeXHei', serif;
-    font-size: 14px;
 }
 
 img {
@@ -75,7 +71,7 @@ footer {
 
 .btn {
     margin: 1px;
-    border-radius: 4;
+    border-radius: 0;
     opacity: 0.9;
 }
 

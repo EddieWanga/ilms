@@ -21,7 +21,7 @@
 	<td><%= student.id %></td>
 	<td><%= student.name %></td>
 	<% if not UserAttendance.where(:user => student, :attendance => @attendance).exists? %>
-	  <% UserAttendance.create(:user =>student, :attendance => @attendance, :attendance_date => @date, :description => 0, :arrive_at => TIme.new) %>
+	  <% UserAttendance.create(:user =>student, :attendance => @attendance, :attendance_date => @date, :description => 0, :arrive_at => Time.new) %>
 	<% else %>
 	  <% detail = UserAttendance.where(:user => student, :attendance => @attendance).take%>
 	  <% description = detail.description %>

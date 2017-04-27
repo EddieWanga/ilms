@@ -1,11 +1,11 @@
 <hr>
 <div class="tab">
-  <button class="tablinks" onclick="areaTab(event, '北區')">北區</button>
-  <button class="tablinks" onclick="areaTab(event, '竹區')">竹區</button>
-  <button class="tablinks" onclick="areaTab(event, '不分區')">不分區</button>
+  <button class="tablinks" onclick="areaTab(event, '北區', '<%= review_stat %>')">北區</button>
+  <button class="tablinks" onclick="areaTab(event, '竹區', '<%= review_stat %>')">竹區</button>
+  <button class="tablinks" onclick="areaTab(event, '不分區', '<%= review_stat %>')">不分區</button>
 </div>
 
-<div id='北區' class="tabcontent">
+<div id="<%=review_stat%>北區" class="<%=review_stat%>" style="display: none;">
 <table class="table table-hover" style="text-align:center;">
   <thead>
     <th style="text-align:center;"> 學員編號 </th>
@@ -43,7 +43,7 @@
 </div>
 
 
-<div id='竹區' class="tabcontent">
+<div id="<%=review_stat%>竹區" class="<%=review_stat%>" style="display: none;">
 <table class="table table-hover" style="text-align:center;">
   <thead>
     <th style="text-align:center;"> 學員編號 </th>
@@ -80,8 +80,7 @@
 </table>
 </div>
 
-
-<div id='不分區' class="tabcontent">
+<div class="<%=review_stat%>" style="display: block;">
 <table class="table table-hover" style="text-align:center;">
   <thead>
     <th style="text-align:center;"> 學員編號 </th>

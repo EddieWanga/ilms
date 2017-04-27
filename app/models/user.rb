@@ -5,7 +5,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
   
   has_many :messages  
-  has_many :answers
+  has_many :answers, :dependent => :destroy
   has_many :homeworks
   has_many :homework_users
   has_many :participated_homeworks, through: :homework_users, source: :homework
